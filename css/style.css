@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.content {
+  width: 100%;
+  padding: 3% 7%;
+  background-color: #2cb8aa;
+  color: #000;
+  text-align: center;
+}
+
+.content::after {
+  content: "";
+  clear: both;
+}
+
+.content input {
+  border: none;
+  width: 80%;
+  padding: 7px;
+  float: left;
+  font-size: 18px;
+}
+
+.content button {
+  width: 20%;
+  border: none;
+  padding: 7px;
+  text-align: center;
+  font-size: 18px;
+  cursor: pointer;
+  background-color: #8f9498;
+  transition: 0.25s;
+}
+
+.content button:hover {
+  background-color: #747779;
+}
+
+ul {
+  width: 100%;
+}
+
+ul li {
+  cursor: pointer;
+  position: relative;
+  padding: 12px 8px;
+  background-color: #aad2d7;
+  font-size: 20px;
+  transition: 0.25s;
+}
+
+ul li:hover {
+  background-color: #93babf;
+}
+
+ul li.checked {
+  text-decoration: line-through;
+  background-color: #6d9195;
+}
+
+.close {
+  background-color: #aad2d7;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 12px 14px;
+  transition: 0.25s;
+}
+
+ul li:hover .close {
+  background-color: #93babf;
+}
+
+ul li.checked .close {
+  background-color: #6d9195;
+}
+
+.close:hover {
+  color: #fff;
+}
