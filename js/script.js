@@ -1,3 +1,13 @@
+var data;
+if (localStorage.getItem('todoList')) {
+  data = JSON.parse(localStorage.getItem('todoList'));
+} else {
+  todo: [],
+  completed: [];
+}
+
+renderTodoList();
+
 document.getElementById('input').addEventListener('keypress', function (e) {
   var value = this.value;
   if (e.code === 'Enter' && value) {
@@ -5,56 +15,35 @@ document.getElementById('input').addEventListener('keypress', function (e) {
   }
 });
 
-function addItem(value) {
-  var li = document.createElement("li");
-  var input = document.getElementById("input").value;
-  var text = document.createTextNode(input);
-
-  li.appendChild(text);
-  document.getElementById("todo").appendChild(li);
-  document.getElementById("input").value = "";
-
-  var span = document.createElement("SPAN");
-  var crossSymbol = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(crossSymbol);
-  li.appendChild(span);
-
-  for(i = 0; i < close.length; i++) {
-    close[i].onclick = function() {
-      var hide = this.parentElement;
-      hide.style.display = "none";
-    }
+addItemToDOM(value, isCompleted) {
+  var list
+  if (completed) {
+    document.getElementById('completed')''
+  } else {
+    document.getElementById('todo');
   }
 
-  for(j = 0; j < li.length; i++) {
-    var serialLI = JSON.stringify(li);
-    localStorage.setItem(i, serialLI);
-  }
+  var item = document.createElement('LI');
+  item.innerText = text;
+
+  var buttons = document.createElement('DIV');
+  buttons.classList.add('buttons');
+
+  var remove = document.createElement('BUTTON');
+  remove.classList.add('remove');
+  
 }
 
-var todoList = document.querySelector("ul");
-todoList.addEventListener("click", function(event) {
-  if (event.target.tagName === "LI") {
-    event.target.classList.toggle("checked");
+function renderTodoList() {
+  if (!data.todo.length && !data.completed.length) return;
+
+  for (var i = 0; i < data.todo.length; i++) {
+    var value = data.todo[i];
+    addItemToDOM(value);
   }
-});
 
-var list = document.getElementsByTagName("LI");
-var i;
-for (i = 0; i < list.length; i++) {
-  var span = document.createElement("SPAN");
-  var crossSymbol = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(crossSymbol);
-  list[i].appendChild(span);
-}
-
-var close = document.getElementsByClassName("close");
-var i;
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function() {
-    var hide = this.parentElement;
-    hide.style.display = "none";
+  for (var j = 0; j < data.completed.length; j++) {
+    var value = data.completed[j];
+    addItemToDOM(value, true);
   }
 }
