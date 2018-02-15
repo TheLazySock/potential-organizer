@@ -15,9 +15,10 @@
 <div class="wrapper">
   <div>
 		<form id="input" @submit="submitInfo">
-			<input v-model="name" autofocus placeholder="name"/>
-			<input v-model="surname" placeholder="surname"/>
-			<button @click="clog">Submit</button>
+			<input type="text" v-model="name" autofocus placeholder="name"/>
+			<input type="text" v-model="surname" placeholder="surname"/>
+			<input type="text" v-model="email" placeholder="email" />
+			<button @click="validate">Submit</button>
 		</form>
 	</div>
 </div>

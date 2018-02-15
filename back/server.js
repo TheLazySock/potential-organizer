@@ -20,7 +20,7 @@ app.use(express.static('../front/'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
-	res.header("Access-Control-Allow-Origin", "http://localhost:8080");
+	res.header("Access-Control-Allow-Origin", "http://localhost:3000");
 	res.header("Access-Control-Allow-Credentials", true);
   res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Cookie, Origin");
 
@@ -36,6 +36,7 @@ app.get('/', function(req,res){
 });
 
 app.post('/user', function(req, res){
+	console.log(req)
   var user = new User(req.body);
   console.log(req.body);
 
