@@ -8,20 +8,32 @@
 	<link rel="shortcut icon" href="img/PepeICO.png" type="image/png" />
 	<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
-	<script src="js/script.js"></script>
 </head>
 
 <body>
 <div class="wrapper">
-  <div>
+  <!-- <div>
 		<form id="input" @submit="submitInfo">
 			<input type="text" v-model="name" autofocus placeholder="name"/>
 			<input type="text" v-model="surname" placeholder="surname"/>
 			<input type="text" v-model="email" placeholder="email" />
 			<button @click="validate">Submit</button>
 		</form>
-	</div>
+	</div> -->
+	<form class="container" id="signup" @submit="validateForm" onsubmit="return false;">
+		<h2>Join</h2>
+		<label class="warning" :class="{ 'hidden': isValid, 'shown': !isValid }">Please, enter correct data</label>
+		<input type="text" class="input" placeholder="email" v-model="email" :class="{ 'error': !validEmail, 'valid': validEmail }"/>
+		<input type="text" class="input" placeholder="name" v-model="name" :class="{ 'error': !validName, 'valid': validName }"/>
+		<input type="text" class="input" placeholder="surname" v-model="surname" :class="{ 'error': !validSurname, 'valid': validSurname }"/>
+		<input type="text" class="input" placeholder="username" v-model="username" :class="{ 'error': !validUsername, 'valid': validUsername }"/>
+		<input type="password" class="input" placeholder="password" v-model="password" :class="{ 'error': !validPassword || emptyPassword, 'valid': validPassword }"/>
+		<input type="password" class="input" placeholder="repeat password" v-model="repPassword" :class="{ 'error': !validPassword || emptyPassword, 'valid': validPassword }"/>
+		<!-- <input type="submit" class="btn" id="submitId" value="Sign In"> -->
+		<button>Submit</button>
+	</form>
 </div>
+<script src="js/script.js"></script>
 </body>
 
 </html>
