@@ -5,22 +5,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link href="css/style.css" rel="stylesheet"/>
-	<link rel="shortcut icon" href="img/PepeICO.png" type="image/png" />
 	<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
 </head>
 
 <body>
 <div class="wrapper">
-  <!-- <div>
-		<form id="input" @submit="submitInfo">
-			<input type="text" v-model="name" autofocus placeholder="name"/>
-			<input type="text" v-model="surname" placeholder="surname"/>
-			<input type="text" v-model="email" placeholder="email" />
-			<button @click="validate">Submit</button>
-		</form>
-	</div> -->
-	<form class="container" id="signup" @submit="validateForm" onsubmit="return false;">
+	<form class="container" id="signup" @submit="validateForm">
 		<h2>Join</h2>
 		<label class="warning" :class="{ 'hidden': isValid, 'shown': !isValid }">Please, enter correct data</label>
 		<input type="text" class="input" placeholder="email" v-model="email" :class="{ 'error': !validEmail, 'valid': validEmail }"/>
@@ -29,7 +20,6 @@
 		<input type="text" class="input" placeholder="username" v-model="username" :class="{ 'error': !validUsername, 'valid': validUsername }"/>
 		<input type="password" class="input" placeholder="password" v-model="password" :class="{ 'error': !validPassword || emptyPassword, 'valid': validPassword }"/>
 		<input type="password" class="input" placeholder="repeat password" v-model="repPassword" :class="{ 'error': !validPassword || emptyPassword, 'valid': validPassword }"/>
-		<!-- <input type="submit" class="btn" id="submitId" value="Sign In"> -->
 		<button>Submit</button>
 	</form>
 </div>

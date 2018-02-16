@@ -45,6 +45,7 @@ let signup = new Vue({
   },
   methods: {
     validateForm: function(event) {
+			event.preventDefault();
       if (this.isValid) {
         this.formValid = true;
         storage.email = this.email;
@@ -64,9 +65,7 @@ let signup = new Vue({
 
         // window.location = 'welcome.html';
 				setTimeout(function() {window.location = 'welcome.htmp'}, 1000);
-      } else {
-        event.preventDefault();
-      }
+      } else { }
     },
   }
 })
