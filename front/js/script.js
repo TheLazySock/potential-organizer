@@ -64,7 +64,7 @@ let signup = new Vue({
         // localStorage.setItem('currentUserInfo', JSON.stringify(storage));
 
         // window.location = 'welcome.html';
-				setTimeout(function() {window.location = 'welcome.htmp'}, 1000);
+				setTimeout(function() {window.location = 'index.html'}, 1000);
       } else { }
     },
   }

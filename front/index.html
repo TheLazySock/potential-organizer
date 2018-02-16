@@ -1,29 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <link href="css/style.css" rel="stylesheet"/>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>Homepage</title>
+
+	<link href="css/style.css" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
 </head>
 
 <body>
-<div class="wrapper">
-	<form class="container" id="signup" @submit="validateForm">
-		<h2>Join</h2>
-		<label class="warning" :class="{ 'hidden': isValid, 'shown': !isValid }">Please, enter correct data</label>
-		<input type="text" class="input" placeholder="email" v-model="email" :class="{ 'error': !validEmail, 'valid': validEmail }"/>
-		<input type="text" class="input" placeholder="name" v-model="name" :class="{ 'error': !validName, 'valid': validName }"/>
-		<input type="text" class="input" placeholder="surname" v-model="surname" :class="{ 'error': !validSurname, 'valid': validSurname }"/>
-		<input type="text" class="input" placeholder="username" v-model="username" :class="{ 'error': !validUsername, 'valid': validUsername }"/>
-		<input type="password" class="input" placeholder="password" v-model="password" :class="{ 'error': !validPassword || emptyPassword, 'valid': validPassword }"/>
-		<input type="password" class="input" placeholder="repeat password" v-model="repPassword" :class="{ 'error': !validPassword || emptyPassword, 'valid': validPassword }"/>
-		<button>Submit</button>
-	</form>
-</div>
-<script src="js/script.js"></script>
+	<div class="wrapper">
+		<header class="header">
+			<nav class="navbar">
+				<a id="logo" class="header-elem" href="index.html"><img src="img/demo.png"/></a>
+				<a class="header-elem" href="todo.html">ToDo</a>
+				<a class="header-elem" href="maps.html">Maps</a>
+			</nav>
+			<div class="second-nav">
+				<a class="header-elem" href="log.html">Log In</a>
+				<a class="header-elem" href="reg.html">Sign In</a>
+			</div>
+		</header>
+		<div class="content">
+			<p class="item">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+				in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</p>
+			<p class="item">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+				in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</p>
+			<p class="item">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+				in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</p>
+			<p class="item">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+				in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</p>
+		</div>
+		<footer class="footer">
+
+		</footer>
+	</div>
 </body>
 
 </html>
