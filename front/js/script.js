@@ -60,10 +60,6 @@ let signup = new Vue({
           },
           body: JSON.stringify(storage)
         });
-
-        // localStorage.setItem('currentUserInfo', JSON.stringify(storage));
-
-        // window.location = 'welcome.html';
 				setTimeout(function() {window.location = 'index.html'}, 1000);
       } else { }
     },
