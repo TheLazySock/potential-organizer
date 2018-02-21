@@ -20,7 +20,7 @@
 		<input type="text" class="input" placeholder="username" v-model="username" :class="{ 'error': !validUsername, 'valid': validUsername }"/>
 		<input type="password" class="input" placeholder="password" v-model="password" :class="{ 'error': !validPassword || emptyPassword, 'valid': validPassword }"/>
 		<input type="password" class="input" placeholder="repeat password" v-model="repPassword" :class="{ 'error': !validPassword || emptyPassword, 'valid': validPassword }"/>
-		<button>Submit</button>
+		<button class="btn">Submit</button>
 	</form>
 </div>
 <script src="js/script.js"></script>

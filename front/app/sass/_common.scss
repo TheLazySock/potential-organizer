@@ -1,0 +1,83 @@
+$blue: #005eff;
+$dark-blue: #0029ff;
+$azure: #0081f9;
+$dark-azure: #0077e6;
+$pale-green: #92cdaa;
+$head-foot-height: 6vh;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: white;
+  h2 {
+    background: white;
+    width: 100%;
+    font-size: 55px;
+    font-weight: 100;
+    text-align: center;
+    color: #92cdaa;
+    margin-top: 5vh;
+    margin-bottom: 1vh;
+  }
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  flex-basis: auto;
+  align-items: center;
+  background-color: #0081f9;
+  min-height: 45px;
+  max-height: 5vh;
+  width: 100%;
+  line-height: 1.4;
+  .header-elem {
+    color: #fff;
+    display: block;
+    font-weight: 100%;
+    float: left;
+    line-height: 1.4;
+    font-size: 14px;
+    padding: 13px 5px 17px;
+    text-decoration: none;
+    transition: 0.3s;
+    &:hover {
+      background: #fff;
+      color: #000;
+    }
+  }
+  #logo {
+    padding: 10px 4px 7px;
+    &:hover {
+      background: $azure;
+    }
+  }
+}
+
+.footer {
+  flex: 0 0 auto;
+  margin-top: 5%;
+  background-color: $azure;
+  width: 100%;
+  min-height: 45px;
+  height: $head-foot-height;
+  line-height: 1.4;
+}
+
+#signup {
+  display: flex;
+  flex-direction: column;
+  margin: 15%;
+}
+

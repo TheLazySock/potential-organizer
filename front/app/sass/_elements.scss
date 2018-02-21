@@ -1,0 +1,49 @@
+.btn {
+  width: 31%;
+  height: 25px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 20px;
+  margin: auto;
+  background-color: #32a3ff;
+  transition: 0.15s;
+  &:hover { 
+    background-color: #0496f9; 
+  }
+}
+
+.input {
+  border-radius: 20px;
+  border: 1px inset black;
+  padding: 0 10px;
+  margin: auto;
+  margin-bottom: 1vh;
+  width: 30%;
+  height: 25px;
+}
+
+.valid {
+  border: 1px inset green !important;
+  background: #45e842;
+}
+
+.error {
+  border: 1px inset red !important;
+  background: #fb4141;
+}
+
+.warning {
+  margin: 10px 0;
+  color: #ff0000;
+  font-size: 25px;
+  font-style: italic;
+  font-family: sans-serif;
+}
+
+.hidden {
+  visibility: collapse;
+}
+
+.shown {
+  visibility: visible;
+}
