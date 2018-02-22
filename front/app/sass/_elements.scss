@@ -1,12 +1,18 @@
+.item {
+  width: 45%;
+  margin: 1vh 0;
+}
+
 .btn {
   width: 31%;
   height: 25px;
   padding: 0 10px;
   border: none;
   border-radius: 20px;
-  margin: auto;
+  margin: 0 auto;
   background-color: #32a3ff;
   transition: 0.15s;
+  min-width: 120px;
   &:hover { 
     background-color: #0496f9; 
   }
@@ -16,9 +22,10 @@
   border-radius: 20px;
   border: 1px inset black;
   padding: 0 10px;
-  margin: auto;
+  margin: 0 auto;
   margin-bottom: 1vh;
   width: 30%;
+  min-width: 120px;
   height: 25px;
 }
 

@@ -1,8 +1,18 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: stretch; }
+  justify-content: space-between;
+  align-items: stretch;
+  height: 100%; }
+
+.content {
+  min-height: calc(100vh - 6vh); }
+
+.items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2vh 0; }
 
 .container {
   display: flex;
@@ -51,7 +61,6 @@
       background: #0081f9; }
 
 .footer {
-  flex: 0 0 auto;
   margin-top: 5%;
   background-color: #0081f9;
   width: 100%;
@@ -59,10 +68,14 @@
   height: 6vh;
   line-height: 1.4; }
 
-#signup {
+#signup, #signin {
   display: flex;
   flex-direction: column;
-  margin: 15%; }
+  margin: 0 15%; }
+
+.item {
+  width: 45%;
+  margin: 1vh 0; }
 
 .btn {
   width: 31%;
@@ -70,9 +83,10 @@
   padding: 0 10px;
   border: none;
   border-radius: 20px;
-  margin: auto;
+  margin: 0 auto;
   background-color: #32a3ff;
-  transition: 0.15s; }
+  transition: 0.15s;
+  min-width: 120px; }
   .btn:hover {
     background-color: #0496f9; }
 
@@ -80,9 +94,10 @@
   border-radius: 20px;
   border: 1px inset black;
   padding: 0 10px;
-  margin: auto;
+  margin: 0 auto;
   margin-bottom: 1vh;
   width: 30%;
+  min-width: 120px;
   height: 25px; }
 
 .valid {

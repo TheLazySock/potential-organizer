@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link href="css/style.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+</head>
+
+<body>
+<div class="wrapper">
+    <header class="header">
+        <nav class="navbar">
+            <a id="logo" class="header-elem" href="index.html"><img src="img/demo.png"/></a>
+            <a class="header-elem" href="todo.html">ToDo</a>
+        </nav>
+        <div id="account-template">
+            <component :is='currentView'></component>
+        </div>
+    </header>
+    <form class="container content" id="signin" @submit="validateForm">
+        <h2>Log In</h2>
+		<label class="warning" :class="{ 'hidden': isValid, 'shown': !isValid }">Please, enter correct data</label>
+		<input type="text" class="input" placeholder="email" v-model="email" :class="{ 'error': !validEmail, 'valid': validEmail }"/>
+		<input type="password" class="input" placeholder="password" v-model="password" :class="{ 'error': emptyPassword, 'valid': !emptyPassword }"/>
+		<button class="btn">Submit</button> 
+    </form>
+    <footer class="footer">
+
+	</footer>
+</div>
+<script src="js/script.js"></script>
+</body>
+
+</html>

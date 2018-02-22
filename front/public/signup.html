@@ -11,7 +11,16 @@
 
 <body>
 <div class="wrapper">
-	<form class="container" id="signup" @submit="validateForm">
+	<header class="header">
+    	<nav class="navbar">
+      <a id="logo" class="header-elem" href="index.html"><img src="img/demo.png"/></a>
+      <a class="header-elem" href="todo.html">ToDo</a>
+    </nav>
+		<div id="account-template">
+			<component :is='currentView'></component>
+		</div>
+  </header>
+	<form class="container content" id="signup" @submit="validateForm">
 		<h2>Join</h2>
 		<label class="warning" :class="{ 'hidden': isValid, 'shown': !isValid }">Please, enter correct data</label>
 		<input type="text" class="input" placeholder="email" v-model="email" :class="{ 'error': !validEmail, 'valid': validEmail }"/>
@@ -22,6 +31,9 @@
 		<input type="password" class="input" placeholder="repeat password" v-model="repPassword" :class="{ 'error': !validPassword || emptyPassword, 'valid': validPassword }"/>
 		<button class="btn">Submit</button>
 	</form>
+	<footer class="footer">
+
+	</footer>
 </div>
 <script src="js/script.js"></script>
 </body>

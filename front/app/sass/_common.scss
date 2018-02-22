@@ -8,8 +8,20 @@ $head-foot-height: 6vh;
 .wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: stretch;
+  height: 100%;
+}
+
+.content {
+  min-height: calc(100vh - 6vh);
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2vh 0;
 }
 
 .container {
@@ -66,7 +78,7 @@ $head-foot-height: 6vh;
 }
 
 .footer {
-  flex: 0 0 auto;
+  // flex: 0 0 auto;
   margin-top: 5%;
   background-color: $azure;
   width: 100%;
@@ -75,9 +87,17 @@ $head-foot-height: 6vh;
   line-height: 1.4;
 }
 
-#signup {
+%default-form {
   display: flex;
   flex-direction: column;
-  margin: 15%;
+  margin: 0 15%;
+}
+
+#signup {
+  @extend %default-form;
+}
+
+#signin {
+  @extend %default-form;  
 }
 

@@ -17,18 +17,20 @@
       <nav class="navbar">
         <a id="logo" class="header-elem" href="index.html"><img src="img/demo.png"/></a>
         <a class="header-elem" href="todo.html">ToDo</a>
-        <a class="header-elem" href="maps.html">Maps</a>
       </nav>
-      <div class="second-nav">
-        <a class="header-elem" href="log.html">Log In</a>
-        <a class="header-elem" href="reg.html">Sign In</a>
+      <div id="account-template">
+        <component :is='currentView'></component>
       </div>
     </header>
+    <section class="content">
 
+    </section>
     <footer class="footer">
 
     </footer>
   </div>
+  <script src="js/script.js"></script>
 </body>
+
 
 </html>
