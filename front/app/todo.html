@@ -22,8 +22,74 @@
         <component :is='currentView'></component>
       </div>
     </header>
-    <section class="content">
+    <section class="content" id="todoapp">
+      <h1>Todos</h1>
+      <section id="todo-main">
 
+        <div class="todo-title-block">
+          <h4>Add new task</h4>
+          <div id="todo-add-new">
+            <div id="todo-add-new-fields">
+              <div class="new-todo-block">
+                <label>Title:</label>
+                <input type="text" id="new-todo-title" class="new-data-input" placeholder="Default title" v-model="todoTitle" >
+              </div>
+              <div id="todo-block-textarea" class="new-todo-block">
+                <label>Text:</label>
+                <textarea id="new-todo-text" class="new-data-input" v-model="todoText"></textarea>
+              </div>
+              <div class="new-todo-block">
+                <label>Date:</label>
+                <input type="date" id="new-final-date" class="new-data-input" v-model="todoDate.customdate">
+              </div>
+            </div>
+            <button id="new-add-btn" @click="addTodo">Add task</button>
+          </div>
+        </div>
+
+        <div class="todo-title-block">
+          <h4>Active tasks</h4>
+          <div id="todo-active" class="todo-main-item droppable" v-cloak>
+            <ul>
+              <!-- todo card pattern -->
+              <li class="todo-item draggable" v-for="todo in todos" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }">
+                <div class="todo-item-content">
+                    <h5>{{ todo.title }}</h5>
+                    <label>{{ todo.text }}</label>
+                    <div class="todo-date">
+                      <div>
+                        <label>Set at: </label>
+                        <label class="start-time">1</label>
+                      </div>
+                      <div>
+                        <label>Time remains: </label>
+                        <label class="time-remains">2</label>
+                       </div>
+                       <div>
+                         <label>Finish: </label>
+                         <label class="finish-time">{{ todo.date }}</label>
+                      </div>
+                    </div>
+                </div>
+                <div class="buttons">
+                  <button class="complete-todo"></button>
+                  <button class="edit-todo"></button>
+                  <button class="delete-todo"></button>
+                </div>
+              </li>
+              <!-- end todo card pattern -->
+            </ul>
+          </div>
+        </div>
+
+        <div class="todo-title-block">
+          <h4>Completed tasks</h4>
+          <div id="todo-complete" class="todo-main-item droppable" v-cloak>
+            
+          </div>
+        </div>
+        
+      </section>
     </section>
     <footer class="footer">
 
