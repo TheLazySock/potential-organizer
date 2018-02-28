@@ -159,6 +159,52 @@ const PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(
 let storage = {};
 // let port = ':3000';
 let url = '';
+
+// возвращает cookie с именем name, если есть, если нет, то undefined
+function getCookie(name) {
+    var matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+  }
+  
+  // устанавливает cookie с именем name и значением value
+  // options - объект с свойствами cookie (expires, path, domain, secure)
+  function setCookie(name, value, options) {
+    options = options || {};
+  
+    var expires = options.expires;
+  
+    if (typeof expires == "number" && expires) {
+      var d = new Date();
+      d.setTime(d.getTime() + expires * 1000);
+      expires = options.expires = d;
+    }
+    if (expires && expires.toUTCString) {
+      options.expires = expires.toUTCString();
+    }
+  
+    value = encodeURIComponent(value);
+  
+    var updatedCookie = name + "=" + value;
+  
+    for (var propName in options) {
+      updatedCookie += "; " + propName;
+      var propValue = options[propName];
+      if (propValue !== true) {
+        updatedCookie += "=" + propValue;
+      }
+    }
+  
+    document.cookie = updatedCookie;
+  }
+  
+  // удаляет cookie с именем name
+  function deleteCookie(name) {
+    setCookie(name, "", {
+      expires: -1
+    })
+  }
 var acountTemplate = new Vue({
     el: '#account-template',
     data: {
@@ -198,7 +244,6 @@ let signin = new Vue({
     },
     isValid: function() {
       if (!this.validEmail ||
-        !this.validUsername ||
         this.emptyPassword) {
         return false;
       } else return true;
@@ -208,18 +253,32 @@ let signin = new Vue({
     validateForm: function(event) {
         event.preventDefault();
         if (this.isValid) {
-            fetch(url + '/user', {
-                method: 'GET',
+          storage.email = this.email;
+          storage.password = this.password;
+          fetch(url + '/login', {
+            method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(storage)
-            });
-		    setTimeout(function() {window.location = 'index.html'}, 1000);
+            body: JSON.stringify(storage),
+          })
+          .then(res => res.json())
+          // .then(response => response.text())
+          // .then(data => {
+          //   userToken = data;
+            // setCookie('username', storage.username, {
+            //   expires: 3600,
+            //   secure: false,
+            //   usertoken: data
+            // });
+            // console.log(data);
+            // console.log('usertoken is:', userToken);
+            // });
+		    // setTimeout(function() {window.location = 'index.html'}, 1000);
       } else { }
     },
   }
-})
+  });
 
 // const PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 // let storage = {};
@@ -276,12 +335,16 @@ let signup = new Vue({
         storage.surname = this.surname;
         storage.username = this.username;
         storage.password = this.password;
-        fetch(url + '/user', {
+        fetch(url + '/signup', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(storage)
+        })
+        .then(function(res) {
+          alert(res);
+          console.log(res);
         });
 				setTimeout(function() {window.location = 'index.html'}, 1000);
       } else { }
@@ -291,15 +354,29 @@ let signup = new Vue({
 
 let todoStorage = {
     fetch: function() {
-        let todos = JSON.parse(localStorage.getItem('todos') || '[]')
+        let todos = JSON.parse(localStorage.getItem('todos') || '[]');
         todos.forEach(function(todo, index) {
-            todo.id = index
+            todo.id = index;
         })
-        todoStorage.uid = todos.length
-        return todos
+        todoStorage.uid = todos.length;
+        return todos;
     },
     save: function(todos) {
-        localStorage.setItem('todos', JSON.stringify(todos))
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }
+}
+
+let completedStorage = {
+    fetch: function() {
+        let completed = JSON.parse(localStorage.getItem('completed') || '[]');
+        completed.forEach(function(todo, index) {
+            todo.id = index;
+        })
+        completedStorage.uid = completed.length;
+        return completed;
+    },
+    save: function(completed) {
+        localStorage.setItem('completed', JSON.stringify(completed));
     }
 }
 
@@ -310,6 +387,7 @@ let todoapp = new Vue({
     el: '#todoapp',
     data: {
         todos: todoStorage.fetch(),
+        completed: completedStorage.fetch(),
         todoTitle: '',
         todoText: '',
         todoDate: vueDate,
@@ -319,6 +397,12 @@ let todoapp = new Vue({
         todos: {
             handler: function(todos) {
                 todoStorage.save(todos)
+            },
+            deep: true
+        },
+        completed: {
+            handler: function(completed) {
+                completedStorage.save(completed)
             },
             deep: true
         }
@@ -337,16 +421,50 @@ let todoapp = new Vue({
                 title: value.title,
                 text: value.text,
                 date: value.date,
-                completed: false
+                complete: false
             })
             this.todoTitle = '';
             this.todoText = '';
             this.todoDate = vueDate;
         },
 
-        // removeTodo: function(todo) {
-        //     this.todos.splice(this.todos.indexOf(todo), 1)
-        // },
+        removeTodo: function(todo) {
+            this.todos.splice(this.todos.indexOf(todo), 1)
+        },
+
+        removeCompleted: function(todo) {
+            this.completed.splice(this.completed.indexOf(todo), 1)
+        },
+
+        completeTodo: function(todo) {
+            let value = {};
+            value.title = todo.title;
+            value.text = todo.text;
+            value.date = todo.date;
+            this.completed.push({
+                id: completedStorage.uid++,
+                title: value.title,
+                text: value.text,
+                date: value.date,
+                complete: true
+            })
+            this.todos.splice(this.todos.indexOf(todo), 1)
+        },
+
+        uncompleteTodo: function(todo) {
+            let value = {};
+            value.title = todo.title;
+            value.text = todo.text;
+            value.date = todo.date;
+            this.todos.push({
+                id: todoStorage.uid++,
+                title: value.title,
+                text: value.text,
+                date: value.date,
+                complete: false
+            })
+            this.completed.splice(this.completed.indexOf(todo), 1)
+        },
 
         // editTodo: function(todo) {
 
@@ -359,10 +477,6 @@ let todoapp = new Vue({
         // cancelEdit: function(todo) {
 
         // },
-
-        // removeCompleted: function() {
-            
-        // }
     }
 })
 

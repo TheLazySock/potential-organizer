@@ -1,9 +1,29 @@
-var router = require('express').Router() 
-var bcrypt = require('bcrypt')
-var jwt = require('jwt-simple')
-var User = require('./models/user')
-var config = require('../config')
+var router = require('express').Router();
+var jwt = require('jwt-simple');
+var cookieParser = require('cookie-parser');
+var User = require('./models/user');
+var config = require('../config');
 
+router.post('/signup', function(req, res, next) {
+    var email = req.body.email;
+    var user = new User(req.body);
+    return User.findOne({'email': email}, function(err, data){
+        if(data && data.email == email){
+            return res.send('User exist');
+        } else {
+            user.save(function(err){
+                if(!err){
+                    return res.json(user)
+                }else{
+                    res.send('Oops Error:' + err);
+                }
+            });
+        }
+    });    
+});
+module.exports = router
+/* 
+var bcrypt = require('bcrypt');
 router.post('/user', function (req, res, next){
     var user = new User
     user.username = req.body.username
@@ -24,7 +44,6 @@ router.post('/user', function (req, res, next){
         }
     });
 })
-
 router.get('/user', function (req, res, next) {
     if(!req.headers['x-auth']) {
         return res.sendStatus(401)
@@ -41,5 +60,4 @@ router.get('/user', function (req, res, next) {
         }
     })
 })
-
-module.exports = router
+ */

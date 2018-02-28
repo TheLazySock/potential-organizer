@@ -53,12 +53,16 @@ let signup = new Vue({
         storage.surname = this.surname;
         storage.username = this.username;
         storage.password = this.password;
-        fetch(url + '/user', {
+        fetch(url + '/signup', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(storage)
+        })
+        .then(function(res) {
+          alert(res);
+          console.log(res);
         });
 				setTimeout(function() {window.location = 'index.html'}, 1000);
       } else { }
