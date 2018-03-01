@@ -205,10 +205,39 @@ function getCookie(name) {
       expires: -1
     })
   }
-var acountTemplate = new Vue({
+var accountTemplate = new Vue({
     el: '#account-template',
     data: {
       currentView: 'unauth'
+    },
+    created: function() {
+      // fetch('/', {
+      //   credentials: 'include'
+      // })
+      // .then(function(res) {
+      //   // this.currentView = 'auth';
+      //   return res.json();
+      // })
+      // fetch('/login', {
+      //   method: 'GET',
+      //   credentials: 'include',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'Cookie': 'loggedIn'
+      //   },
+      // })
+      // .then(function(response) {
+      //   this.currentView = 'auth';
+      // });
+      // .then(function(response) {
+      //   return response.json
+      // })
+      // .then(function(myJson) {
+      //   console.log(myJson);
+      // });
+      // console.log('111');
+      // if (this.currentView === 'unauth') this.currentView = 'auth'
+      // else this.currentView = 'unauth';
     },
     components: {
       unauth: { 
@@ -251,34 +280,23 @@ let signin = new Vue({
   },
   methods: {
     validateForm: function(event) {
-        event.preventDefault();
-        if (this.isValid) {
-          storage.email = this.email;
-          storage.password = this.password;
-          fetch(url + '/login', {
-            method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            body: JSON.stringify(storage),
-          })
-          .then(res => res.json())
-          // .then(response => response.text())
-          // .then(data => {
-          //   userToken = data;
-            // setCookie('username', storage.username, {
-            //   expires: 3600,
-            //   secure: false,
-            //   usertoken: data
-            // });
-            // console.log(data);
-            // console.log('usertoken is:', userToken);
-            // });
-		    // setTimeout(function() {window.location = 'index.html'}, 1000);
+      event.preventDefault();
+      if (this.isValid) {
+        storage.email = this.email;
+        storage.password = this.password;
+        fetch(url + '/login', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(storage),
+        })
+        setTimeout(function() {window.location = 'index.html'}, 1000);
       } else { }
     },
   }
-  });
+});
 
 // const PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 // let storage = {};
@@ -342,10 +360,6 @@ let signup = new Vue({
           },
           body: JSON.stringify(storage)
         })
-        .then(function(res) {
-          alert(res);
-          console.log(res);
-        });
 				setTimeout(function() {window.location = 'index.html'}, 1000);
       } else { }
     },

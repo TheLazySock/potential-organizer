@@ -3,6 +3,10 @@ var jwt = require('jwt-simple');
 var config = require('../config');
 var User = require('./models/user');
 
+
+
+module.exports = router
+/* 
 router.get('/account', function(req, res, next){
     if (!req.headers['x-auth']) { return res.sendStatus(401)}
     try {
@@ -18,5 +22,4 @@ router.get('/account', function(req, res, next){
         res.json(user)
     })
 })
-
-module.exports = router
+ */

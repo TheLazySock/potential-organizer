@@ -149,6 +149,13 @@
     #todo-main .todo-main-item:nth-child(2) {
       border-left: solid 1px #65d39c;
       border-right: solid 1px #65d39c; }
+    #todo-main .todo-main-item ul {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-content: flex-start; }
 
 .todo-title-block {
   display: flex;
@@ -241,9 +248,19 @@
       width: 2.5vh;
       height: 2.5vh;
       border: solid 1px black;
-      border-radius: 2.5vh; }
+      border-radius: 2.5vh;
+      cursor: pointer; }
   .todo-item .todo-date {
     font-size: 1.4vh; }
+
+.completed {
+  background: #4dff07; }
+
+.item-displayed {
+  display: flex; }
+
+.item-hidden {
+  display: none; }
 
 [v-cloak] {
   display: none; }

@@ -16,12 +16,28 @@ router.post('/login', function(req, res, next) {
                 res.send('Error, try again')
             } else {
                 var exprs = 3600 * 24 * 1000 * 3;
-                res.cookie('cookie', data.id, {maxAge: exprs, httpOnly: true});
+                // res.cookie('cookie', data.id, {maxAge: exprs, httpOnly: true});
+                res.cookie('loggedIn', 'yes', {maxAge: exprs, httpOnly: true});
                 res.json(data);
             }
         })
     }
 });
+
+// router.get('/login', function(req, res, next) {
+//     if ((!req.cookies) || (!req.cookies.loggedIn)) {
+//         next();
+//         return;
+//     }
+//     User.findOne({'_id': req.cookies.loggedIn},function(err,user){
+//         if(!err) {
+//             req.user = user;
+//         }
+//         var exprs = 3600 * 24 * 1000 * 3;
+//         res.cookie('usersession', user.id, {maxAge: exprs});
+//         next();
+//     });
+// })
 
 module.exports = router
 

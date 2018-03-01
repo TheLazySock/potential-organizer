@@ -25,31 +25,20 @@ let signin = new Vue({
   },
   methods: {
     validateForm: function(event) {
-        event.preventDefault();
-        if (this.isValid) {
-          storage.email = this.email;
-          storage.password = this.password;
-          fetch(url + '/login', {
-            method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            body: JSON.stringify(storage),
-          })
-          .then(res => res.json())
-          // .then(response => response.text())
-          // .then(data => {
-          //   userToken = data;
-            // setCookie('username', storage.username, {
-            //   expires: 3600,
-            //   secure: false,
-            //   usertoken: data
-            // });
-            // console.log(data);
-            // console.log('usertoken is:', userToken);
-            // });
-		    // setTimeout(function() {window.location = 'index.html'}, 1000);
+      event.preventDefault();
+      if (this.isValid) {
+        storage.email = this.email;
+        storage.password = this.password;
+        fetch(url + '/login', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(storage),
+        })
+        setTimeout(function() {window.location = 'index.html'}, 1000);
       } else { }
     },
   }
-  });
+});
