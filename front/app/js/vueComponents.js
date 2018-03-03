@@ -35,8 +35,8 @@ var accountTemplate = new Vue({
     components: {
       unauth: { 
           template: '<div class="second-nav">' + 
-            '<a class="header-elem" href="login.html">Log In</a>' + 
-            '<a class="header-elem" href="signup.html">Sign Up</a>' + 
+            '<a class="header-elem" href="login">Log In</a>' + 
+            '<a class="header-elem" href="signup">Sign Up</a>' + 
             '</div>'
         },
       auth: {
