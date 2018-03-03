@@ -1,10 +1,9 @@
 var bodyParser = require('body-parser');
 var router = require('express').Router();
 
-router.use(bodyParser.json())
+router.use(bodyParser.json());
 
-router.use(require('./signup'))
-router.use(require('./login'))
-router.use(require('./account'))
+router.use(require('./signup'));
+router.use(require('./login'));
 
 module.exports = router
