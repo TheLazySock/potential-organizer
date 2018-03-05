@@ -21,6 +21,7 @@
     "serve-favicon": "~2.4.5"
   },
   "devDependencies": {
+    "express-session": "^1.15.6",
     "mongodb": "^3.0.2",
     "winston": "^2.4.0"
   }

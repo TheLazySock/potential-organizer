@@ -9,6 +9,24 @@ router.get('/signup', function(req, res) {
     });
 });
 
+router.post('/signup', function(req, res, next) {
+    var email = req.body.email;
+    var user = new User(req.body);
+    return User.findOne({'email': email}, function(err, data) {
+        if (data && data.email == email) {
+            return res.send('User exist');
+        } else {
+            user.save(function(err) {
+                if (!err) {
+                    return res.json(user)
+                } else {
+                    res.send('Oops Error:' + err);
+                }
+            });
+        }
+    }); 
+});
+
 // router.post('/signup', function(req, res, next) {
 //     var email = req.body.email;
 //     var user = new User(req.body);
