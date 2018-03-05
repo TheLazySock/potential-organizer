@@ -5,13 +5,16 @@ var User = require('./models/user');
 var checkAuth = require('./customMiddleware/checkAuth');
 
 router.get('/login', function(req, res) {
-    if (checkAuth) {
-        res.redirect('/');
-    } else { 
-        res.sendFile('login.html', {
-            root: '../front/public/'
-        });
-    }
+    // if (checkAuth) {
+    //     res.redirect('/');
+    // } else { 
+    //     res.sendFile('login.html', {
+    //         root: '../front/public/'
+    //     });
+    // }
+    res.sendFile('login.html', {
+        root: '../front/public/'
+    });
 });
 
 router.post('/login', function(req, res, next) {
@@ -27,26 +30,11 @@ router.post('/login', function(req, res, next) {
                 res.send('Error, try again')
             } else {
                 var exprs = 3600 * 24 * 1000 * 3;
-                res.cookie('loggedIn', 'yes', {maxAge: exprs, httpOnly: false});
+                // res.cookie('loggedIn', 'yes', {maxAge: exprs, httpOnly: false});
                 res.json(data);
             }
         })
     }
 });
-
-// router.get('/login', function(req, res, next) {
-//     if ((!req.cookies) || (!req.cookies.loggedIn)) {
-//         next();
-//         return;
-//     }
-//     User.findOne({'_id': req.cookies.loggedIn},function(err,user){
-//         if(!err) {
-//             req.user = user;
-//         }
-//         var exprs = 3600 * 24 * 1000 * 3;
-//         res.cookie('usersession', user.id, {maxAge: exprs});
-//         next();
-//     });
-// })
 
 module.exports = router

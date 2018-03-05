@@ -205,39 +205,31 @@ function getCookie(name) {
       expires: -1
     })
   }
+fetch('/')
+  .then(function(res) {
+    if (res.headers.get("x-auth")) {
+      // accountTemplate.currentView = res.headers.get("x-auth").toString();
+      console.log(res.headers.get('x-auth'));      
+    } else {
+      // accountTemplate.currentView = "unauth";
+    }
+  // console.log(accountTemplate.currentView);
+});
+
 var accountTemplate = new Vue({
     el: '#account-template',
     data: {
-      currentView: 'unauth'
+      currentView: '',
     },
     created: function() {
-      // fetch('/', {
-      //   credentials: 'include'
-      // })
+      // fetch('/')
       // .then(function(res) {
-      //   // this.currentView = 'auth';
-      //   return res.json();
+      //   // console.log(res.headers.get("x-auth"));
+      //   this.fetchResp = res.headers.get("x-auth").toString();
+      //   this.currentView = res.headers.get("x-auth").toString();
+      //   console.log(this.fetchResp);
+      //   console.log(this.currentView);
       // })
-      // fetch('/login', {
-      //   method: 'GET',
-      //   credentials: 'include',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Cookie': 'loggedIn'
-      //   },
-      // })
-      // .then(function(response) {
-      //   this.currentView = 'auth';
-      // });
-      // .then(function(response) {
-      //   return response.json
-      // })
-      // .then(function(myJson) {
-      //   console.log(myJson);
-      // });
-      // console.log('111');
-      // if (this.currentView === 'unauth') this.currentView = 'auth'
-      // else this.currentView = 'unauth';
     },
     components: {
       unauth: { 
