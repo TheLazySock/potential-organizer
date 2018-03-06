@@ -33,7 +33,8 @@ if (checkUrl('/login')) {
             },
             body: JSON.stringify(storage),
           })
-          setTimeout(function() {window.location = '/'}, 1000);
+          // setTimeout(function() {window.location = '/'}, 1000);
+          console.log(JSON.stringify(storage));
         } else { }
       },
     }

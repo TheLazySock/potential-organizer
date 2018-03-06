@@ -83,10 +83,13 @@
         </div>
 
         <div class="todo-title-block">
-          <h4>Completed tasks</h4>
-          <div id="todo-complete" class="todo-main-item droppable" v-cloak>
+          <div id="bin">
+            
+          </div>
+          <!-- <h4>Completed tasks</h4> -->
+          <!-- <div id="todo-complete" class="todo-main-item droppable" v-cloak>
             <ul>
-              <!-- todo card pattern -->
+              
               <li class="todo-item draggable" v-for="todo in completed" :key="todo.id" :class="{ completed: todo.complete, editing: todo == editedTodo }">
                   <div class="todo-item-content">
                       <h5>{{ todo.title }}</h5>
@@ -112,9 +115,9 @@
                     <button class="delete-todo" @click="removeCompleted(todo)">--</button>
                   </div>
                 </li>
-                <!-- end todo card pattern -->
+                
             </ul>
-          </div>
+          </div> -->
         </div>
         
       </section>

@@ -285,7 +285,8 @@ if (checkUrl('/login')) {
             },
             body: JSON.stringify(storage),
           })
-          setTimeout(function() {window.location = '/'}, 1000);
+          // setTimeout(function() {window.location = '/'}, 1000);
+          console.log(JSON.stringify(storage));
         } else { }
       },
     }
@@ -362,7 +363,18 @@ if (checkUrl('/todo')) {
 
     let todoStorage = {
         fetch: function() {
-            let todos = JSON.parse(localStorage.getItem('todos') || '[]');
+            // let todos = JSON.parse(localStorage.getItem('todos') || '[]');
+            let todos = [];
+            fetch('/todoapp', {
+                method: 'GET',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(function(response) {
+                var todos = JSON.parse(response || '[]');
+            })
             todos.forEach(function(todo, index) {
                 todo.id = index;
             })
@@ -370,23 +382,34 @@ if (checkUrl('/todo')) {
             return todos;
         },
         save: function(todos) {
-            localStorage.setItem('todos', JSON.stringify(todos));
-        }
-    }
-    
-    let completedStorage = {
-        fetch: function() {
-            let completed = JSON.parse(localStorage.getItem('completed') || '[]');
-            completed.forEach(function(todo, index) {
-                todo.id = index;
+            // localStorage.setItem('todos', JSON.stringify(todos));
+            fetch('/todo', {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(todos[todos.length - 1])
             })
-            completedStorage.uid = completed.length;
-            return completed;
-        },
-        save: function(completed) {
-            localStorage.setItem('completed', JSON.stringify(completed));
+            console.log(JSON.stringify(todos[todos.length - 1]));
         }
     }
+    /***
+     * В общем, почти весь код выше либо не нужен, либо отчасти. Поэтому это говнище можно смело делитнуть (скорее всего), но пока пусть останется.
+     *  ***/
+    // let completedStorage = {
+    //     fetch: function() {
+    //         let completed = JSON.parse(localStorage.getItem('completed') || '[]');
+    //         completed.forEach(function(todo, index) {
+    //             todo.id = index;
+    //         })
+    //         completedStorage.uid = completed.length;
+    //         return completed;
+    //     },
+    //     save: function(completed) {
+    //         localStorage.setItem('completed', JSON.stringify(completed));
+    //     }
+    // }
     
     var vueDate = {};
     vueDate.customdate = new Date(01/01/2000);
@@ -395,10 +418,11 @@ if (checkUrl('/todo')) {
         el: '#todoapp',
         data: {
             todos: todoStorage.fetch(),
-            completed: completedStorage.fetch(),
+            // completed: completedStorage.fetch(),
             todoTitle: '',
             todoText: '',
             todoDate: vueDate,
+            completed: false,
             editedTodo: null,
         },
         watch: {
@@ -428,7 +452,8 @@ if (checkUrl('/todo')) {
                     id: todoStorage.uid++,
                     title: value.title,
                     text: value.text,
-                    date: value.date,
+                    // date: value.date,
+                    date: new Date(Date.now()),
                     complete: false
                 })
                 this.todoTitle = '';
@@ -436,43 +461,43 @@ if (checkUrl('/todo')) {
                 this.todoDate = vueDate;
             },
     
-            removeTodo: function(todo) {
-                this.todos.splice(this.todos.indexOf(todo), 1)
-            },
+            // removeTodo: function(todo) {
+            //     this.todos.splice(this.todos.indexOf(todo), 1)
+            // },
     
-            removeCompleted: function(todo) {
-                this.completed.splice(this.completed.indexOf(todo), 1)
-            },
+            // removeCompleted: function(todo) {
+            //     this.completed.splice(this.completed.indexOf(todo), 1)
+            // },
     
-            completeTodo: function(todo) {
-                let value = {};
-                value.title = todo.title;
-                value.text = todo.text;
-                value.date = todo.date;
-                this.completed.push({
-                    id: completedStorage.uid++,
-                    title: value.title,
-                    text: value.text,
-                    date: value.date,
-                    complete: true
-                })
-                this.todos.splice(this.todos.indexOf(todo), 1)
-            },
+            // completeTodo: function(todo) {
+            //     let value = {};
+            //     value.title = todo.title;
+            //     value.text = todo.text;
+            //     value.date = todo.date;
+            //     this.completed.push({
+            //         id: completedStorage.uid++,
+            //         title: value.title,
+            //         text: value.text,
+            //         date: value.date,
+            //         complete: true
+            //     })
+            //     this.todos.splice(this.todos.indexOf(todo), 1)
+            // },
     
-            uncompleteTodo: function(todo) {
-                let value = {};
-                value.title = todo.title;
-                value.text = todo.text;
-                value.date = todo.date;
-                this.todos.push({
-                    id: todoStorage.uid++,
-                    title: value.title,
-                    text: value.text,
-                    date: value.date,
-                    complete: false
-                })
-                this.completed.splice(this.completed.indexOf(todo), 1)
-            },
+            // uncompleteTodo: function(todo) {
+            //     let value = {};
+            //     value.title = todo.title;
+            //     value.text = todo.text;
+            //     value.date = todo.date;
+            //     this.todos.push({
+            //         id: todoStorage.uid++,
+            //         title: value.title,
+            //         text: value.text,
+            //         date: value.date,
+            //         complete: false
+            //     })
+            //     this.completed.splice(this.completed.indexOf(todo), 1)
+            // },
     
             // editTodo: function(todo) {
     
