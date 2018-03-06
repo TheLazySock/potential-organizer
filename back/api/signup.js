@@ -1,20 +1,8 @@
 var router = require('express').Router();
 var cookieParser = require('cookie-parser');
 var User = require('./models/user');
-var config = require('../config');
-var checkAuth = require('./customMiddleware/checkAuth');
 
 router.get('/signup', function(req, res) {
-    // if (checkAuth) {
-    //     res.redirect('/');
-    // } else { 
-    //     res.sendFile('signup.html', {
-    //         root: '../front/public/'
-    //     });
-    // }
-    // res.sendFile('signup.html', {
-    //     root: '../front/public/'
-    // });
     res.send({userId: req.session});
 });
 

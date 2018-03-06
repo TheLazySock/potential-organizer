@@ -5,6 +5,7 @@ router.use(bodyParser.json());
 
 router.use(require('./frontpage'));
 router.use(require('./login'));
+router.use(require('./logout'));
 router.use(require('./signup'));
 router.use(require('./todo'));
 

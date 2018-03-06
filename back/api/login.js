@@ -1,17 +1,8 @@
 var router = require('express').Router();
 var cookieParser = require('cookie-parser');
-var config = require('../config');
 var User = require('./models/user');
-var checkAuth = require('./customMiddleware/checkAuth');
 
 router.get('/login', function(req, res) {
-    // if (checkAuth) {
-    //     res.redirect('/');
-    // } else { 
-    //     res.sendFile('login.html', {
-    //         root: '../front/public/'
-    //     });
-    // }
     res.sendFile('login.html', {
         root: '../front/public/'
     });
@@ -29,7 +20,7 @@ router.post('/login', function(req, res, next) {
             if (err) {
                 res.send('Error, try again')
             } else {
-                var exprs = 3600 * 24 * 1000 * 3;
+                // var exprs = 3600 * 24 * 1000 * 3;
                 // res.cookie('loggedIn', 'yes', {maxAge: exprs, httpOnly: false});
                 res.json(data);
             }

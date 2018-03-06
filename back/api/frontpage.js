@@ -1,7 +1,6 @@
 var router = require('express').Router();
 var cookieParser = require('cookie-parser');
 var User = require('./models/user');
-var checkAuth = require('./customMiddleware/checkAuth');
 
 router.get('/', function(req, res) {
     if (checkAuth) {
