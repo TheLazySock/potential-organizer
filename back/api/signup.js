@@ -3,7 +3,9 @@ var cookieParser = require('cookie-parser');
 var User = require('./models/user');
 
 router.get('/signup', function(req, res) {
-    res.send({userId: req.session});
+    res.sendFile('signup.html', {
+        root: '../front/public/'
+    });
 });
 
 router.post('/signup', function(req, res, next) {

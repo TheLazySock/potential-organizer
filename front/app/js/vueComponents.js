@@ -1,18 +1,7 @@
-fetch('/')
-  .then(function(res) {
-    if (res.headers.get("x-auth")) {
-      // accountTemplate.currentView = res.headers.get("x-auth").toString();
-      console.log(res.headers.get('x-auth'));      
-    } else {
-      // accountTemplate.currentView = "unauth";
-    }
-  // console.log(accountTemplate.currentView);
-});
-
 var accountTemplate = new Vue({
     el: '#account-template',
     data: {
-      currentView: '',
+      currentView: 'unauth',
     },
     created: function() {
       // fetch('/')
