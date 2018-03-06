@@ -58,7 +58,7 @@ if (checkUrl('/signup')) {
             },
             body: JSON.stringify(storage)
           })
-          setTimeout(function() {window.location = 'index.html'}, 1000);
+          setTimeout(function() {window.location = '/'}, 1000);
         } else { }
       },
     }

@@ -212,39 +212,44 @@ function getCookie(name) {
     })
   }
 var accountTemplate = new Vue({
-    el: '#account-template',
-    data: {
-      currentView: 'unauth',
-    },
-    created: function() {
-      // fetch('/')
-      // .then(function(res) {
-      //   // console.log(res.headers.get("x-auth"));
-      //   this.fetchResp = res.headers.get("x-auth").toString();
-      //   this.currentView = res.headers.get("x-auth").toString();
-      //   console.log(this.fetchResp);
-      //   console.log(this.currentView);
-      // })
-    },
-    components: {
-      unauth: { 
-          template: '<div class="second-nav">' + 
-            '<a class="header-elem" href="login">Log In</a>' + 
-            '<a class="header-elem" href="signup">Sign Up</a>' + 
-            '</div>'
-        },
-      auth: {
-          template: '<div class="second-nav">' + 
-            '<a href="account.html" class="header-elem">Account</a>' + 
-            '</div>'
-        }
+  el: '#account-template',
+  data: {
+    currentView: 'unauth',
+  },
+  created: function() {
+    if (getCookie('loggedIn') == 'auth') {
+      this.currentView = 'auth';
     }
-  })
-// const PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-// let storage = {};
-// // let port = ':3000';
-// let url = '';
+  },
+  components: {
+    unauth: { 
+        template: '<div class="second-nav">' + 
+          '<a class="header-elem" href="login">Log In</a>' + 
+          '<a class="header-elem" href="signup">Sign Up</a>' + 
+          '</div>'
+      },
+    auth: {
+        template: '<div class="second-nav">' + 
+          '<a href="account" class="header-elem">Account</a>' + 
+          '</div>'
+      }
+  },
+})
 
+  // var logoff = new Vue({
+  //   el: '#logout-btn',
+  //   methods: {
+  //     glarkl: function(event) {
+  //       fetch('/logout', {  
+  //         method: 'POST',
+  //         credentials: 'include',
+  //         headers: {
+  //           'Content-Type': 'application/json'
+  //         },
+  //       });
+  //     }
+  //   }
+  // })
 if (checkUrl('/login')) {
   let signin = new Vue({
     el: '#signin',
@@ -280,7 +285,7 @@ if (checkUrl('/login')) {
             },
             body: JSON.stringify(storage),
           })
-          setTimeout(function() {window.location = 'index'}, 1000);
+          setTimeout(function() {window.location = '/'}, 1000);
         } else { }
       },
     }
@@ -346,7 +351,7 @@ if (checkUrl('/signup')) {
             },
             body: JSON.stringify(storage)
           })
-          setTimeout(function() {window.location = 'index.html'}, 1000);
+          setTimeout(function() {window.location = '/'}, 1000);
         } else { }
       },
     }

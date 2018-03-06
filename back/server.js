@@ -11,6 +11,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('../front/public/static'));
 
+
+
 app.listen(port, function() {
 	console.log("Listening on " + port);
 });

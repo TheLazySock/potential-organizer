@@ -8,6 +8,7 @@ router.use(require('./login'));
 router.use(require('./logout'));
 router.use(require('./signup'));
 router.use(require('./todo'));
+router.use(require('./account'));
 
 
 module.exports = router
