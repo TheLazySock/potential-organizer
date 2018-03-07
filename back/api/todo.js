@@ -5,8 +5,6 @@ var User = require('./models/user');
 var Todo = require('./models/todo');
 
 router.use(cookieParser());
-// router.use(bodyParser.urlencoded({ extended: false }));
-// router.use(bodyParser.json());
 
 router.post('/todo', function(req, res) {
     var user_id = req.cookies.sid;
@@ -15,9 +13,12 @@ router.post('/todo', function(req, res) {
     var todo = new Todo(req.body);
     todo.user_id = user_id;
     console.log('todo: ' + todo);   
-    console.log('todo_origin: ' + req.body); 
     todo.save(function(err) {
-        if (err) res.send('Oops, there is error:' + err);
+        if (err) {
+            res.send('Oops, there is error:' + err);
+        } else {
+            res.send('OK')
+        }
     });
 });
 
