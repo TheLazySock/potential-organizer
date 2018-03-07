@@ -115,6 +115,12 @@
   font-style: italic;
   font-family: sans-serif; }
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s; }
+
+.fade-enter, .fade-leave-to {
+  opacity: 0; }
+
 .hidden {
   visibility: collapse; }
 
@@ -261,6 +267,17 @@
 
 .item-hidden {
   display: none; }
+
+.list-item {
+  display: inline-block;
+  margin-right: 10px; }
+
+.list-enter-active, .list-leave-active {
+  transition: all 0.5s; }
+
+.list-enter, .list-leave-to {
+  opacity: 0;
+  transform: translateY(30px); }
 
 [v-cloak] {
   display: none; }

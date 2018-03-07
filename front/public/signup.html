@@ -13,8 +13,8 @@
 <div class="wrapper">
 	<header class="header">
     	<nav class="navbar">
-      <a id="logo" class="header-elem" href="index.html"><img src="img/demo.png"/></a>
-      <a class="header-elem" href="todo.html">ToDo</a>
+      <a id="logo" class="header-elem" href="/"><img src="img/demo.png"/></a>
+      <a class="header-elem" href="todo">ToDo</a>
     </nav>
 		<div id="account-template">
 			<component :is='currentView'></component>
@@ -22,7 +22,9 @@
   </header>
 	<form class="container content" id="signup" @submit="validateForm">
 		<h2>Join</h2>
-		<label class="warning" :class="{ 'hidden': isValid, 'shown': !isValid }">Please, enter correct data</label>
+		<transition name="fade">
+				<label class="warning" v-if="!isValid">Please, enter correct data</label>
+		</transition>
 		<input type="text" class="input" placeholder="email" v-model="email" :class="{ 'error': !validEmail, 'valid': validEmail }"/>
 		<input type="text" class="input" placeholder="name" v-model="name" :class="{ 'error': !validName, 'valid': validName }"/>
 		<input type="text" class="input" placeholder="surname" v-model="surname" :class="{ 'error': !validSurname, 'valid': validSurname }"/>

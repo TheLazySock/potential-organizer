@@ -8,9 +8,9 @@ const rimraf = require('rimraf');
 const path = {
     public: {
       html: 'front/public/',
-      js: 'front/public/js/',
-      css: 'front/public/css/',
-      img: 'front/public/img/'
+      js: 'front/public/static/js/',
+      css: 'front/public/static/css/',
+      img: 'front/public/static/img/'
     },
     app: {
       html: 'front/app/*.html',
