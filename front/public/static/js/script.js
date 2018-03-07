@@ -160,6 +160,12 @@ let storage = {};
 // let port = ':3000';
 let url = '';
 
+function checkUrl(currentPath) {
+  if (window.location.pathname === currentPath) 
+    return true;
+  else return false;
+}
+
 // возвращает cookie с именем name, если есть, если нет, то undefined
 function getCookie(name) {
     var matches = document.cookie.match(new RegExp(
@@ -205,285 +211,307 @@ function getCookie(name) {
       expires: -1
     })
   }
-fetch('/')
-  .then(function(res) {
-    if (res.headers.get("x-auth")) {
-      // accountTemplate.currentView = res.headers.get("x-auth").toString();
-      console.log(res.headers.get('x-auth'));      
-    } else {
-      // accountTemplate.currentView = "unauth";
-    }
-  // console.log(accountTemplate.currentView);
-});
-
 var accountTemplate = new Vue({
-    el: '#account-template',
-    data: {
-      currentView: '',
-    },
-    created: function() {
-      // fetch('/')
-      // .then(function(res) {
-      //   // console.log(res.headers.get("x-auth"));
-      //   this.fetchResp = res.headers.get("x-auth").toString();
-      //   this.currentView = res.headers.get("x-auth").toString();
-      //   console.log(this.fetchResp);
-      //   console.log(this.currentView);
-      // })
-    },
-    components: {
-      unauth: { 
-          template: '<div class="second-nav">' + 
-            '<a class="header-elem" href="login">Log In</a>' + 
-            '<a class="header-elem" href="signup">Sign Up</a>' + 
-            '</div>'
-        },
-      auth: {
-          template: '<div class="second-nav">' + 
-            '<a href="account.html" class="header-elem">Account</a>' + 
-            '</div>'
-        }
+  el: '#account-template',
+  data: {
+    currentView: 'unauth',
+  },
+  created: function() {
+    if (getCookie('loggedIn') == 'auth') {
+      this.currentView = 'auth';
     }
-  })
-// const PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-// let storage = {};
-// // let port = ':3000';
-// let url = '';
-
-let signin = new Vue({
-  el: '#signin',
-  data: {
-    email: '',
-    password: '',
   },
-  computed: {
-    validEmail: function() {
-      return PATTERN.test(this.email)
-    },
-    emptyPassword: function() {
-      return this.password === ''
-    },
-    isValid: function() {
-      if (!this.validEmail ||
-        this.emptyPassword) {
-        return false;
-      } else return true;
-    },
+  components: {
+    unauth: { 
+        template: '<div class="second-nav">' + 
+          '<a class="header-elem" href="login">Log In</a>' + 
+          '<a class="header-elem" href="signup">Sign Up</a>' + 
+          '</div>'
+      },
+    auth: {
+        template: '<div class="second-nav">' + 
+          '<a href="account" class="header-elem">Account</a>' + 
+          '</div>'
+      }
   },
-  methods: {
-    validateForm: function(event) {
-      event.preventDefault();
-      if (this.isValid) {
-        storage.email = this.email;
-        storage.password = this.password;
-        fetch(url + '/login', {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(storage),
-        })
-        setTimeout(function() {window.location = 'index.html'}, 1000);
-      } else { }
-    },
-  }
-});
-
-// const PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-// let storage = {};
-// // let port = ':3000';
-// let url = '';
-
-let signup = new Vue({
-  el: '#signup',
-  data: {
-    email: '',
-    username: '',
-    name: '',
-    surname: '',
-    password: '',
-    repPassword: '',
-  },
-  computed: {
-    validEmail: function() {
-      return PATTERN.test(this.email)
-    },
-    validName: function() {
-      return this.name !== ''
-    },
-    validSurname: function() {
-      return this.surname !== ''
-    },
-    validUsername: function() {
-      return this.username !== ''
-    },
-    validPassword: function() {
-      return this.password === this.repPassword
-    },
-    emptyPassword: function() {
-      return this.password === ''
-    },
-    isValid: function() {
-      if (!this.validEmail ||
-        !this.validName ||
-        !this.validSurname ||
-        !this.validUsername ||
-        !this.validPassword ||
-        this.emptyPassword) {
-        return false;
-      } else return true;
-    },
-  },
-  methods: {
-    validateForm: function(event) {
-			event.preventDefault();
-      if (this.isValid) {
-        this.formValid = true;
-        storage.email = this.email;
-        storage.name = this.name;
-        storage.surname = this.surname;
-        storage.username = this.username;
-        storage.password = this.password;
-        fetch(url + '/signup', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(storage)
-        })
-				setTimeout(function() {window.location = 'index.html'}, 1000);
-      } else { }
-    },
-  }
 })
 
-let todoStorage = {
-    fetch: function() {
-        let todos = JSON.parse(localStorage.getItem('todos') || '[]');
-        todos.forEach(function(todo, index) {
-            todo.id = index;
-        })
-        todoStorage.uid = todos.length;
-        return todos;
-    },
-    save: function(todos) {
-        localStorage.setItem('todos', JSON.stringify(todos));
-    }
-}
-
-let completedStorage = {
-    fetch: function() {
-        let completed = JSON.parse(localStorage.getItem('completed') || '[]');
-        completed.forEach(function(todo, index) {
-            todo.id = index;
-        })
-        completedStorage.uid = completed.length;
-        return completed;
-    },
-    save: function(completed) {
-        localStorage.setItem('completed', JSON.stringify(completed));
-    }
-}
-
-var vueDate = {};
-vueDate.customdate = new Date(01/01/2000);
-
-let todoapp = new Vue({
-    el: '#todoapp',
+  // var logoff = new Vue({
+  //   el: '#logout-btn',
+  //   methods: {
+  //     glarkl: function(event) {
+  //       fetch('/logout', {  
+  //         method: 'POST',
+  //         credentials: 'include',
+  //         headers: {
+  //           'Content-Type': 'application/json'
+  //         },
+  //       });
+  //     }
+  //   }
+  // })
+if (checkUrl('/login')) {
+  let signin = new Vue({
+    el: '#signin',
     data: {
-        todos: todoStorage.fetch(),
-        completed: completedStorage.fetch(),
-        todoTitle: '',
-        todoText: '',
-        todoDate: vueDate,
-        editedTodo: null,
+      email: '',
+      password: '',
     },
-    watch: {
-        todos: {
-            handler: function(todos) {
-                todoStorage.save(todos)
-            },
-            deep: true
-        },
-        completed: {
-            handler: function(completed) {
-                completedStorage.save(completed)
-            },
-            deep: true
-        }
+    computed: {
+      validEmail: function() {
+        return PATTERN.test(this.email)
+      },
+      emptyPassword: function() {
+        return this.password === ''
+      },
+      isValid: function() {
+        if (!this.validEmail ||
+          this.emptyPassword) {
+          return false;
+        } else return true;
+      },
     },
     methods: {
-        addTodo: function() {
-            let value = {};
-            value.title = this.todoTitle && this.todoTitle.trim();
-            value.text = this.todoText && this.todoText.trim();
-            value.date = this.todoDate.customdate;
-            if (!value) {
-                return
-            }
-            this.todos.push({
-                id: todoStorage.uid++,
-                title: value.title,
-                text: value.text,
-                date: value.date,
-                complete: false
-            })
-            this.todoTitle = '';
-            this.todoText = '';
-            this.todoDate = vueDate;
-        },
-
-        removeTodo: function(todo) {
-            this.todos.splice(this.todos.indexOf(todo), 1)
-        },
-
-        removeCompleted: function(todo) {
-            this.completed.splice(this.completed.indexOf(todo), 1)
-        },
-
-        completeTodo: function(todo) {
-            let value = {};
-            value.title = todo.title;
-            value.text = todo.text;
-            value.date = todo.date;
-            this.completed.push({
-                id: completedStorage.uid++,
-                title: value.title,
-                text: value.text,
-                date: value.date,
-                complete: true
-            })
-            this.todos.splice(this.todos.indexOf(todo), 1)
-        },
-
-        uncompleteTodo: function(todo) {
-            let value = {};
-            value.title = todo.title;
-            value.text = todo.text;
-            value.date = todo.date;
-            this.todos.push({
-                id: todoStorage.uid++,
-                title: value.title,
-                text: value.text,
-                date: value.date,
-                complete: false
-            })
-            this.completed.splice(this.completed.indexOf(todo), 1)
-        },
-
-        // editTodo: function(todo) {
-
-        // },
-
-        // doneEdit: function(todo) {
-
-        // },
-
-        // cancelEdit: function(todo) {
-
-        // },
+      validateForm: function(event) {
+        event.preventDefault();
+        if (this.isValid) {
+          storage.email = this.email;
+          storage.password = this.password;
+          fetch(url + '/login', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(storage),
+          })
+          // setTimeout(function() {window.location = '/'}, 1000);
+          console.log(JSON.stringify(storage));
+        } else { }
+      },
     }
-})
+  });  
+}
 
-todoapp.$mount('#todoapp')
+if (checkUrl('/signup')) {
+  let signup = new Vue({
+    el: '#signup',
+    data: {
+      email: '',
+      username: '',
+      name: '',
+      surname: '',
+      password: '',
+      repPassword: '',
+    },
+    computed: {
+      validEmail: function() {
+        return PATTERN.test(this.email)
+      },
+      validName: function() {
+        return this.name !== ''
+      },
+      validSurname: function() {
+        return this.surname !== ''
+      },
+      validUsername: function() {
+        return this.username !== ''
+      },
+      validPassword: function() {
+        return this.password === this.repPassword
+      },
+      emptyPassword: function() {
+        return this.password === ''
+      },
+      isValid: function() {
+        if (!this.validEmail ||
+          !this.validName ||
+          !this.validSurname ||
+          !this.validUsername ||
+          !this.validPassword ||
+          this.emptyPassword) {
+          return false;
+        } else return true;
+      },
+    },
+    methods: {
+      validateForm: function(event) {
+        event.preventDefault();
+        if (this.isValid) {
+          this.formValid = true;
+          storage.email = this.email;
+          storage.name = this.name;
+          storage.surname = this.surname;
+          storage.username = this.username;
+          storage.password = this.password;
+          fetch(url + '/signup', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(storage)
+          })
+          setTimeout(function() {window.location = '/'}, 1000);
+        } else { }
+      },
+    }
+  })
+}
+
+if (checkUrl('/todo')) {
+
+    let todoStorage = {
+        fetch: function() {
+            // let todos = JSON.parse(localStorage.getItem('todos') || '[]');
+            let todos = [];
+            fetch('/todoapp', {
+                method: 'GET',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(function(response) {
+                var todos = JSON.parse(response || '[]');
+            })
+            todos.forEach(function(todo, index) {
+                todo.id = index;
+            })
+            todoStorage.uid = todos.length;
+            return todos;
+        },
+        save: function(todos) {
+            // localStorage.setItem('todos', JSON.stringify(todos));
+            fetch('/todo', {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(todos[todos.length - 1])
+            })
+            console.log(JSON.stringify(todos[todos.length - 1]));
+        }
+    }
+    /***
+     * В общем, почти весь код выше либо не нужен, либо отчасти. Поэтому это говнище можно смело делитнуть (скорее всего), но пока пусть останется.
+     *  ***/
+    // let completedStorage = {
+    //     fetch: function() {
+    //         let completed = JSON.parse(localStorage.getItem('completed') || '[]');
+    //         completed.forEach(function(todo, index) {
+    //             todo.id = index;
+    //         })
+    //         completedStorage.uid = completed.length;
+    //         return completed;
+    //     },
+    //     save: function(completed) {
+    //         localStorage.setItem('completed', JSON.stringify(completed));
+    //     }
+    // }
+    
+    var vueDate = {};
+    vueDate.customdate = new Date(01/01/2000);
+    
+    let todoapp = new Vue({
+        el: '#todoapp',
+        data: {
+            todos: todoStorage.fetch(),
+            // completed: completedStorage.fetch(),
+            todoTitle: '',
+            todoText: '',
+            todoDate: vueDate,
+            completed: false,
+            editedTodo: null,
+        },
+        watch: {
+            todos: {
+                handler: function(todos) {
+                    todoStorage.save(todos)
+                },
+                deep: true
+            },
+            completed: {
+                handler: function(completed) {
+                    completedStorage.save(completed)
+                },
+                deep: true
+            }
+        },
+        methods: {
+            addTodo: function() {
+                let value = {};
+                value.title = this.todoTitle && this.todoTitle.trim();
+                value.text = this.todoText && this.todoText.trim();
+                value.date = this.todoDate.customdate;
+                if (!value) {
+                    return
+                }
+                this.todos.push({
+                    id: todoStorage.uid++,
+                    title: value.title,
+                    text: value.text,
+                    // date: value.date,
+                    date: new Date(Date.now()),
+                    complete: false
+                })
+                this.todoTitle = '';
+                this.todoText = '';
+                this.todoDate = vueDate;
+            },
+    
+            // removeTodo: function(todo) {
+            //     this.todos.splice(this.todos.indexOf(todo), 1)
+            // },
+    
+            // removeCompleted: function(todo) {
+            //     this.completed.splice(this.completed.indexOf(todo), 1)
+            // },
+    
+            // completeTodo: function(todo) {
+            //     let value = {};
+            //     value.title = todo.title;
+            //     value.text = todo.text;
+            //     value.date = todo.date;
+            //     this.completed.push({
+            //         id: completedStorage.uid++,
+            //         title: value.title,
+            //         text: value.text,
+            //         date: value.date,
+            //         complete: true
+            //     })
+            //     this.todos.splice(this.todos.indexOf(todo), 1)
+            // },
+    
+            // uncompleteTodo: function(todo) {
+            //     let value = {};
+            //     value.title = todo.title;
+            //     value.text = todo.text;
+            //     value.date = todo.date;
+            //     this.todos.push({
+            //         id: todoStorage.uid++,
+            //         title: value.title,
+            //         text: value.text,
+            //         date: value.date,
+            //         complete: false
+            //     })
+            //     this.completed.splice(this.completed.indexOf(todo), 1)
+            // },
+    
+            // editTodo: function(todo) {
+    
+            // },
+    
+            // doneEdit: function(todo) {
+    
+            // },
+    
+            // cancelEdit: function(todo) {
+    
+            // },
+        }
+    })
+    
+    todoapp.$mount('#todoapp')
+} 

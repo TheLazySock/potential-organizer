@@ -1,40 +1,39 @@
-fetch('/')
-  .then(function(res) {
-    if (res.headers.get("x-auth")) {
-      // accountTemplate.currentView = res.headers.get("x-auth").toString();
-      console.log(res.headers.get('x-auth'));      
-    } else {
-      // accountTemplate.currentView = "unauth";
-    }
-  // console.log(accountTemplate.currentView);
-});
-
 var accountTemplate = new Vue({
-    el: '#account-template',
-    data: {
-      currentView: '',
-    },
-    created: function() {
-      // fetch('/')
-      // .then(function(res) {
-      //   // console.log(res.headers.get("x-auth"));
-      //   this.fetchResp = res.headers.get("x-auth").toString();
-      //   this.currentView = res.headers.get("x-auth").toString();
-      //   console.log(this.fetchResp);
-      //   console.log(this.currentView);
-      // })
-    },
-    components: {
-      unauth: { 
-          template: '<div class="second-nav">' + 
-            '<a class="header-elem" href="login">Log In</a>' + 
-            '<a class="header-elem" href="signup">Sign Up</a>' + 
-            '</div>'
-        },
-      auth: {
-          template: '<div class="second-nav">' + 
-            '<a href="account.html" class="header-elem">Account</a>' + 
-            '</div>'
-        }
+  el: '#account-template',
+  data: {
+    currentView: 'unauth',
+  },
+  created: function() {
+    if (getCookie('loggedIn') == 'auth') {
+      this.currentView = 'auth';
     }
-  })
+  },
+  components: {
+    unauth: { 
+        template: '<div class="second-nav">' + 
+          '<a class="header-elem" href="login">Log In</a>' + 
+          '<a class="header-elem" href="signup">Sign Up</a>' + 
+          '</div>'
+      },
+    auth: {
+        template: '<div class="second-nav">' + 
+          '<a href="account" class="header-elem">Account</a>' + 
+          '</div>'
+      }
+  },
+})
+
+  // var logoff = new Vue({
+  //   el: '#logout-btn',
+  //   methods: {
+  //     glarkl: function(event) {
+  //       fetch('/logout', {  
+  //         method: 'POST',
+  //         credentials: 'include',
+  //         headers: {
+  //           'Content-Type': 'application/json'
+  //         },
+  //       });
+  //     }
+  //   }
+  // })
