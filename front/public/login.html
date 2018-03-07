@@ -22,7 +22,9 @@
     </header>
     <form class="container content" id="signin" @submit="validateForm">
         <h2>Log In</h2>
-		<label class="warning" :class="{ 'hidden': isValid, 'shown': !isValid }">Please, enter correct data</label>
+        <transition name="fade">
+            <label class="warning" v-if="!isValid">Please, enter correct data</label>
+        </transition>
         <input type="text" class="input" placeholder="email" v-model="email" :class="{ 'error': !validEmail, 'valid': validEmail }"/>
 		<!-- <input type="text" class="input" placeholder="username" v-model="username" :class="{ 'error': !validUsername, 'valid': validUsername }"/>         -->
 		<input type="password" class="input" placeholder="password" v-model="password" :class="{ 'error': emptyPassword, 'valid': !emptyPassword }"/>

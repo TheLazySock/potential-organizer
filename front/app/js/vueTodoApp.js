@@ -12,7 +12,7 @@ if (checkUrl('/todo')) {
                 },
             })
             .then(function(response) {
-                var todos = JSON.parse(response || '[]');
+                todos = JSON.parse(response || '[]');
             })
             todos.forEach(function(todo, index) {
                 todo.id = index;
@@ -71,28 +71,31 @@ if (checkUrl('/todo')) {
                 },
                 deep: true
             },
-            completed: {
-                handler: function(completed) {
-                    completedStorage.save(completed)
-                },
-                deep: true
-            }
+            // completed: {
+            //     handler: function(completed) {
+            //         completedStorage.save(completed)
+            //     },
+            //     deep: true
+            // }
         },
         methods: {
             addTodo: function() {
+                if (this.todoTitle == '' || this.todoText == '' || this.todoDate.customdate == '') {
+                    return;
+                }
                 let value = {};
                 value.title = this.todoTitle && this.todoTitle.trim();
                 value.text = this.todoText && this.todoText.trim();
                 value.date = this.todoDate.customdate;
                 if (!value) {
-                    return
+                    return;
                 }
                 this.todos.push({
                     id: todoStorage.uid++,
                     title: value.title,
                     text: value.text,
-                    // date: value.date,
-                    date: new Date(Date.now()),
+                    date: value.date,
+                    // date: new Date(Date.now()),
                     complete: false
                 })
                 this.todoTitle = '';

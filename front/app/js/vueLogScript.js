@@ -15,7 +15,7 @@ if (checkUrl('/login')) {
       isValid: function() {
         if (!this.validEmail ||
           this.emptyPassword) {
-          return false;
+            return false;
         } else return true;
       },
     },
