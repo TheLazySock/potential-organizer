@@ -27,7 +27,7 @@
       <section id="todo-main">
 
         <div class="todo-title-block">
-          <h4>Add new task</h4>
+          <h4>Add task</h4>
           <div id="todo-add-new">
             <div id="todo-add-new-fields">
               <div class="new-todo-block">
@@ -48,10 +48,10 @@
         </div>
 
         <div class="todo-title-block">
-          <h4>Active tasks</h4>
+          <h4>Tasks</h4>
           <div id="todo-active" class="todo-main-item droppable" v-cloak>
             <transition-group name="list" tag="ul">
-              <li class="todo-item draggable" v-for="todo in todos" :key="todo.id" :class="{ completed: todo.complete, editing: todo == editedTodo }">
+              <li class="todo-item draggable" v-for="todo in todos" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }">
                 <div class="todo-item-content">
                     <h5>{{ todo.title }}</h5>
                     <label>{{ todo.text }}</label>
@@ -77,9 +77,17 @@
                 </div>
               </li>
             </transition-group>
-            <!-- <ul> -->
-              <!-- todo card pattern -->
-              <!-- <li class="todo-item draggable" v-for="todo in todos" :key="todo.id" :class="{ completed: todo.complete, editing: todo == editedTodo }">
+          </div>
+        </div>
+
+        <div class="todo-title-block">
+          <div id="bin">
+
+          </div>
+          <!-- <h4>Completed tasks</h4>
+          <div id="todo-complete" class="todo-main-item droppable" v-cloak>
+            <ul>
+              <li class="todo-item draggable" v-for="todo in completed" :key="todo.id" :class="{ completed: todo.complete, editing: todo == editedTodo }">
                 <div class="todo-item-content">
                     <h5>{{ todo.title }}</h5>
                     <label>{{ todo.text }}</label>
@@ -99,50 +107,11 @@
                     </div>
                 </div>
                 <div class="buttons">
-                  <button class="complete-todo" @click="completeTodo(todo)">++</button>
-                  <button class="edit-todo">O</button>
-                  <button class="delete-todo" @click="removeTodo(todo)">--</button>
+                  <button class="complete-todo" @click="uncompleteTodo(todo)">++</button>
+                  <button class="edit-todo"></button>
+                  <button class="delete-todo" @click="removeCompleted(todo)">--</button>
                 </div>
-              </li> -->
-              <!-- end todo card pattern -->
-            <!-- </ul> -->
-          </div>
-        </div>
-
-        <div class="todo-title-block">
-          <div id="bin">
-            
-          </div>
-          <!-- <h4>Completed tasks</h4> -->
-          <!-- <div id="todo-complete" class="todo-main-item droppable" v-cloak>
-            <ul>
-              
-              <li class="todo-item draggable" v-for="todo in completed" :key="todo.id" :class="{ completed: todo.complete, editing: todo == editedTodo }">
-                  <div class="todo-item-content">
-                      <h5>{{ todo.title }}</h5>
-                      <label>{{ todo.text }}</label>
-                      <div class="todo-date">
-                        <div>
-                          <label>Set at: </label>
-                          <label class="start-time">1</label>
-                        </div>
-                        <div>
-                          <label>Time remains: </label>
-                          <label class="time-remains">2</label>
-                         </div>
-                         <div>
-                           <label>Finish: </label>
-                           <label class="finish-time">{{ todo.date }}</label>
-                        </div>
-                      </div>
-                  </div>
-                  <div class="buttons">
-                    <button class="complete-todo" @click="uncompleteTodo(todo)">++</button>
-                    <button class="edit-todo"></button>
-                    <button class="delete-todo" @click="removeCompleted(todo)">--</button>
-                  </div>
-                </li>
-                
+              </li>
             </ul>
           </div> -->
         </div>

@@ -16,6 +16,8 @@
     }
 }
 
+
+
 #todo-main {
     display: flex;
     flex-direction: row;
@@ -160,6 +162,17 @@
     .todo-date {
         font-size: 1.4vh;
     }
+    &.editing {
+        .edit {
+            display: block;
+        }
+        .todo-view {
+            display: none;
+        }
+    }
+    .edit {
+        display: none;
+    }    
 }
 
 .completed {

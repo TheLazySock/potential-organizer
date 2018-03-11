@@ -258,6 +258,12 @@
       cursor: pointer; }
   .todo-item .todo-date {
     font-size: 1.4vh; }
+  .todo-item.editing .edit {
+    display: block; }
+  .todo-item.editing .todo-view {
+    display: none; }
+  .todo-item .edit {
+    display: none; }
 
 .completed {
   background: #4dff07; }
