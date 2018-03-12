@@ -20,7 +20,7 @@
 			<component :is='currentView'></component>
 		</div>
   </header>
-	<form class="container content" id="signup" @submit="validateForm">
+	<form class="container" id="signup" @submit="validateForm">
 		<h2>Join</h2>
 		<transition name="fade">
 				<label class="warning" v-if="!isValid">Please, enter correct data</label>

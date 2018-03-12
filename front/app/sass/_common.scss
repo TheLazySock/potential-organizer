@@ -10,11 +10,8 @@ $head-foot-height: 6vh;
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
-  height: 100%;
-}
-
-.content {
-  min-height: calc(100vh - 6vh);
+  // height: 100%;
+  height: 100vh;
 }
 
 .items {
@@ -99,5 +96,12 @@ $head-foot-height: 6vh;
 
 #signin {
   @extend %default-form;  
+}
+
+#logout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
 }
 

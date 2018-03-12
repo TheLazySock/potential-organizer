@@ -1,3 +1,60 @@
+.second-nav {
+  color: #fff;
+  .dropable-menu {
+    position: relative;
+    display: inline-block;
+    list-style: none;
+    li {
+      margin-right: 1px;
+      display: block;
+      font-weight: 100%;
+      line-height: 1.4;
+      font-size: 14px;
+      padding: 13px 5px 10px;
+      transition: 0.3s;
+      a {
+        text-decoration: none;
+        color: #fff;
+      }
+      &:hover > a {
+        color: #000;
+      }
+      &:hover li {
+        font-weight: 100%;
+      line-height: 1.4;
+      font-size: 14px;
+      padding: 13px 5px 10px;
+      transition: 0.3s;
+      }
+    }
+  }
+  .submenu {
+    position: absolute;
+    display: none !important;
+    background-color: #0081f9;
+    width: 100%;
+    float: left;
+    padding: 13px 8px 10px;
+    list-style: none; 
+    line-height: 1.4;
+    font-size: 14px;
+    padding: 13px 5px 0px;
+    transition: 0.3s;
+    li:hover  {
+      padding: 0;
+      margin-left: -5px;
+      transition: 0.3s;
+      width: 100%;
+      background-color: #fff;
+    }
+  }
+  ul li:hover > ul {
+    display: block !important;
+    margin-top: 1vh;
+    margin-left: -2vw;
+  }
+}
+
 .item {
   width: 45%;
   margin: 1vh 0;

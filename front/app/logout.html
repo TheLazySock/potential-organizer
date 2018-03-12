@@ -13,26 +13,11 @@
 
 <body>
 <div class="wrapper">
-	<header class="header">
-		<nav class="navbar">
-			<a id="logo" class="header-elem" href="/"><img src="img/demo.png"/></a>
-			<a class="header-elem" href="todo">ToDo</a>
-		</nav>
-		<div id="account-template">
-            <component :is='currentView'></component>
-		</div>
-    </header>
-    <div id="account" class="content">
-		<!-- <button @click="logout">Logout</button> -->
-		<ul>
-			<li v-for="(value, key) in user_info">
-				{{key}}: {{value}} 
-			</li>
-		</ul>
+	
+    <div id="logout">
+		<img src="img/cat-loading.gif">
     </div>
-	<footer class="footer">
-
-	</footer>
+	
 </div>
 <script src="js/script.js"></script>
 </body>

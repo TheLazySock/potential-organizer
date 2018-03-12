@@ -22,8 +22,13 @@
             <component :is='currentView'></component>
 		</div>
     </header>
-    <div id="logout-btn">
-        <button @click="glarkl">Logout</button>
+    <div id="account" class="content">
+		<!-- <button @click="logout">Logout</button> -->
+		<ul>
+			<li v-for="(value, key) in user_info">
+				{{key}}: {{value}} 
+			</li>
+		</ul>
     </div>
 	<footer class="footer">
 

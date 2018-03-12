@@ -211,45 +211,121 @@ function getCookie(name) {
       expires: -1
     })
   }
+if (checkUrl('/account')) {
+
+    var account = new Vue({
+        el: '#account',
+        data: {
+            user_info: []
+        },
+        created: function(event) {
+            fetch('/accountinfo', {
+                method: 'GET',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                account.user_info = data;
+            })
+        },
+        methods: {
+            logout: function(event) {
+                fetch('/logout', {  
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+            },
+        }
+    });   
+
+}
+
+var unauth = {
+  template: '<div class="second-nav">' +
+    '<a class="header-elem" href="login">Log In</a>' +
+    '<a class="header-elem" href="signup">Sign Up</a>' +
+    '</div>'
+};
+
+var auth = {
+  template: '<div class="second-nav">' + 
+  '<ul class="header-elem dropable-menu">' + 
+  '<li><a href="#!">Menu1</a>' + 
+  '<ul class="submenu">' + 
+     '<li><a href="/account">Account</a></li>' + 
+     '<li><a href="/logout">Logout</a></li>' + 
+  '</ul>' + 
+  '</li>' +
+  '</ul>' + 
+  '</div>'
+}
+
 var accountTemplate = new Vue({
   el: '#account-template',
   data: {
-    currentView: 'unauth',
+    currentView: unauth,
   },
   created: function() {
     if (getCookie('loggedIn') == 'auth') {
-      this.currentView = 'auth';
+      this.currentView = auth;
     }
   },
-  components: {
-    unauth: { 
-        template: '<div class="second-nav">' + 
-          '<a class="header-elem" href="login">Log In</a>' + 
-          '<a class="header-elem" href="signup">Sign Up</a>' + 
-          '</div>'
-      },
-    auth: {
-        template: '<div class="second-nav">' + 
-          '<a href="account" class="header-elem">Account</a>' + 
-          '</div>'
-      }
+  methods: {
+    logout: function(event) {
+      fetch('/logout', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+    },
   },
 })
 
-  // var logoff = new Vue({
-  //   el: '#logout-btn',
-  //   methods: {
-  //     glarkl: function(event) {
-  //       fetch('/logout', {  
-  //         method: 'POST',
-  //         credentials: 'include',
-  //         headers: {
-  //           'Content-Type': 'application/json'
-  //         },
-  //       });
-  //     }
-  //   }
-  // })
+if (checkUrl('/logout')) {
+
+  var logout = new Vue({
+    el: '#logout',
+    created: function() {
+      setTimeout(function() {
+        fetch('/logout', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        })
+        .then(function(response) {
+          if (response.status === 200) window.location = '/';
+        });  
+      }, 5000);
+      // setTimeout(function() {
+      //   window.location = '/';  
+      // }, 3000);
+    },
+    // methods: {
+    //   logout: function(event) {
+    //     fetch('/logout', {
+    //       method: 'POST',
+    //       credentials: 'same-origin',
+    //       headers: {
+    //         'Content-Type': 'application/json'
+    //       },
+    //     });
+    //   },
+    // },
+  })
+
+}
 if (checkUrl('/login')) {
   let signin = new Vue({
     el: '#signin',
@@ -369,19 +445,21 @@ if (checkUrl('/signup')) {
  * Ну а теперь, когда со стеной текста закончили, можно и таски накидать.
  * 
  * Собственно, таски: 
- *  1. Пофиксить парсинг данных;    √
- *  2. Сделать операции изменения/удаления данных;  √
- *  2,5. Изменить страницу тудухи, сделать списком (хотя вариант с карточками тоже неплохой имхо), сделать модальное
+ *  √   1. Пофиксить парсинг данных;    
+ *  √+- 2. Сделать операции изменения/удаления данных;
+ *  0   2,5. Изменить страницу тудухи, сделать списком (хотя вариант с карточками тоже неплохой имхо), сделать модальное
  *       окно редактирования инфы;
- *  3. Доделать страницу account, довести до ума, а именно:
- *      3.1. Сделать адекватную модель изменения данных (CRUD операции для юзера, возможно без D), парсинг и вывод пользовательской информации; 
- *      3.2. Переделать модель юзера, реализовать необязательную пользовательскую информацию;  
- *  4. Как следствие из 3.2, сделать модель регистрации и авторизации более простой а именно:
- *      4.1. Вынести в пользовательскую информацию имя, фамилию и прочее. Оставить только никнейм, мыло и пароль; 
- *      4.2. Реализовать логин либо по емейлу, либо по никнейму в одном поле;
- *  5. Пофиксить редиректы, возможно сделать их на серверной стороне (т.е. пофиксить проверку кукисов и респонзы);
- *  6. Добавить апдейт кукисов, а именно:
- *      6.1. Реализовать экспайрс кукисов только в то время, когда пользователь определённое время (3 дня) не заходит на сайт;
+ *  0   3. Доделать страницу account, довести до ума, а именно:
+ *  0       3.1. Сделать адекватную модель изменения данных (CRUD операции для юзера, возможно без D), парсинг и вывод пользовательской информации; 
+ *  0       3.2. Переделать модель юзера, реализовать необязательную пользовательскую информацию;  
+ *  0   4. Как следствие из 3.2, сделать модель регистрации и авторизации более простой а именно:
+ *  0       4.1. Вынести в пользовательскую информацию имя, фамилию и прочее. Оставить только никнейм, мыло и пароль; 
+ *  0       4.2. Реализовать логин либо по емейлу, либо по никнейму в одном поле;
+ *  √   5. Пофиксить редиректы, возможно сделать их на серверной стороне (т.е. пофиксить проверку кукисов и респонзы);  
+ *  -   6. Добавить апдейт кукисов, а именно:   
+ *  -       6.1. Реализовать экспайрс кукисов только в то время, когда пользователь определённое время (3 дня) не заходит на сайт;
+ *  √   7. Выпадающее меню вверху со ссылками на страницы аккаунта и логаута.
+ *  √   8. Страница логаута с редиректом и всеми делами (НЕ ЗАБЫТЬ ПОТОМ ВКЛЮЧИТЬ ВСЁ-ТАКИ ЧИСТКУ КУКОВ).
  * 
  * BONUSные таски:
  *  B1. Сделать доступ к пользовательскому профилю для других юзеров;
@@ -409,6 +487,17 @@ if (checkUrl('/todo')) {
     
     var vueDate = {};
     vueDate.customdate = new Date(01/01/2000);
+
+    function checkId(id) {
+        if (id !== "undefined") {
+            console.log("curid: " + id + ", newid: " + id++);
+            return id++;
+        } 
+        else {
+            console.log('undef id curid: ' + id);
+            return 0;  
+        } 
+    }
     
     let todoapp = new Vue({
         el: '#todoapp',
@@ -434,12 +523,7 @@ if (checkUrl('/todo')) {
             })
             .then(function(data) {
                 todost = data;
-            })
-            .then(function() {
-                todost.forEach(function(todo, index) {
-                    todo.id = index;
-                })
-                todoStorage.uid = todost.length;
+                console.log(data);
             })
             .then(function() {
                 todoapp.todos = todost;
@@ -457,8 +541,13 @@ if (checkUrl('/todo')) {
                 if (!value) {
                     return;
                 }
+                console.log(this.todos.length); 
+                var todo_id;
+                if (this.todos.length === 0) todo_id = 0
+                else todo_id = Number(this.todos[this.todos.length - 1].id) + 1;
+                console.log(todo_id);
                 this.todos.push({
-                    id: todoStorage.uid++,
+                    id: todo_id,
                     title: value.title,
                     text: value.text,
                     date: value.date,
@@ -471,7 +560,7 @@ if (checkUrl('/todo')) {
             },
     
             removeTodo: function(todo) {
-                var todo_id = this.todos.indexOf(todo);
+                var todo_id = todo.id;
                 fetch('/todoapp', {
                     method: 'DELETE',
                     credentials: 'same-origin',
@@ -480,11 +569,12 @@ if (checkUrl('/todo')) {
                     },
                     body: JSON.stringify({todo_id: todo_id})
                 });
+                console.log(todo_id);
                 this.todos.splice(this.todos.indexOf(todo), 1);
             },
 
             completeTodo: function(todo) {
-                var todo_id = this.todos.indexOf(todo);
+                var todo_id = todo.id;
                 if (todo.completed == false) {
                     todo.completed = true;
                 } else {
@@ -502,6 +592,7 @@ if (checkUrl('/todo')) {
                     },
                     body: JSON.stringify(sendingInfo)
                 });
+                console.log(todo_id);
             },
 
             // editTodo: function(todo) {
