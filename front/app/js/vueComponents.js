@@ -1,48 +1,39 @@
 var accountTemplate = new Vue({
-    el: '#account-template',
-    data: {
-      currentView: 'unauth'
-    },
-    created: function() {
-      // fetch('/', {
-      //   credentials: 'include'
-      // })
-      // .then(function(res) {
-      //   // this.currentView = 'auth';
-      //   return res.json();
-      // })
-      // fetch('/login', {
-      //   method: 'GET',
-      //   credentials: 'include',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Cookie': 'loggedIn'
-      //   },
-      // })
-      // .then(function(response) {
-      //   this.currentView = 'auth';
-      // });
-      // .then(function(response) {
-      //   return response.json
-      // })
-      // .then(function(myJson) {
-      //   console.log(myJson);
-      // });
-      // console.log('111');
-      // if (this.currentView === 'unauth') this.currentView = 'auth'
-      // else this.currentView = 'unauth';
-    },
-    components: {
-      unauth: { 
-          template: '<div class="second-nav">' + 
-            '<a class="header-elem" href="login.html">Log In</a>' + 
-            '<a class="header-elem" href="signup.html">Sign Up</a>' + 
-            '</div>'
-        },
-      auth: {
-          template: '<div class="second-nav">' + 
-            '<a href="account.html" class="header-elem">Account</a>' + 
-            '</div>'
-        }
+  el: '#account-template',
+  data: {
+    currentView: 'unauth',
+  },
+  created: function() {
+    if (getCookie('loggedIn') == 'auth') {
+      this.currentView = 'auth';
     }
-  })
+  },
+  components: {
+    unauth: { 
+        template: '<div class="second-nav">' + 
+          '<a class="header-elem" href="login">Log In</a>' + 
+          '<a class="header-elem" href="signup">Sign Up</a>' + 
+          '</div>'
+      },
+    auth: {
+        template: '<div class="second-nav">' + 
+          '<a href="account" class="header-elem">Account</a>' + 
+          '</div>'
+      }
+  },
+})
+
+  // var logoff = new Vue({
+  //   el: '#logout-btn',
+  //   methods: {
+  //     glarkl: function(event) {
+  //       fetch('/logout', {  
+  //         method: 'POST',
+  //         credentials: 'include',
+  //         headers: {
+  //           'Content-Type': 'application/json'
+  //         },
+  //       });
+  //     }
+  //   }
+  // })
