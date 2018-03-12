@@ -3,6 +3,12 @@ let storage = {};
 // let port = ':3000';
 let url = '';
 
+function checkUrl(currentPath) {
+  if (window.location.pathname === currentPath) 
+    return true;
+  else return false;
+}
+
 // возвращает cookie с именем name, если есть, если нет, то undefined
 function getCookie(name) {
     var matches = document.cookie.match(new RegExp(

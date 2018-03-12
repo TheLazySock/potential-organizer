@@ -16,6 +16,8 @@
     }
 }
 
+
+
 #todo-main {
     display: flex;
     flex-direction: row;
@@ -160,6 +162,17 @@
     .todo-date {
         font-size: 1.4vh;
     }
+    &.editing {
+        .edit {
+            display: block;
+        }
+        .todo-view {
+            display: none;
+        }
+    }
+    .edit {
+        display: none;
+    }    
 }
 
 .completed {
@@ -180,6 +193,18 @@
 //         height: 100%;
 //     }
 // }
+
+.list-item {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .list-enter-active, .list-leave-active {
+    transition: all 0.5s;
+  }
+  .list-enter, .list-leave-to /* .list-leave-active до версии 2.1.8 */ {
+    opacity: 0;
+    transform: translateY(30px);
+  }
 
 [v-cloak] {
     display: none;
