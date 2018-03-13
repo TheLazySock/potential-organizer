@@ -4,6 +4,7 @@ var todo = db.Schema({
   user_id: { type: String},
   title: { type: String, required: true},
   text: { type: String, required: true},
+  startDate: { type: String, require: true},
   date: { type: String, required: true},
   completed: { type: Boolean}
 });

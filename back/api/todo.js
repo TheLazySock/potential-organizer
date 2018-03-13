@@ -38,6 +38,7 @@ router.post('/todoapp', function(req, res) {
 router.put('/todoapp', function(req, res) {
     var user_id = req.cookies.sid;
     var todo_id = req.body.todo_id;
+    console.log(req.body);
     if (req.body.title || req.body.text || req.body.date) {
         // res.send('Also OK');
         return Todo.update({'user_id': user_id, 'id': todo_id}, {$set: {title : req.body.title, text: req.body.text, date: req.body.date}}, function(err){

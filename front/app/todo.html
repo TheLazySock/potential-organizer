@@ -27,42 +27,33 @@
       <section id="todo-main">
 
         <div class="todo-title-block">
-          <h4>Add task</h4>
+          <!-- <h4>Add task</h4> -->
           <div id="todo-add-new">
-            <div id="todo-add-new-fields">
-              <div class="new-todo-block">
-                <label>Title:</label>
-                <input type="text" id="new-todo-title" class="new-data-input" placeholder="Default title" v-model="todoTitle" >
-              </div>
-              <div id="todo-block-textarea" class="new-todo-block">
-                <label>Text:</label>
-                <textarea id="new-todo-text" class="new-data-input" v-model="todoText"></textarea>
-              </div>
-              <div class="new-todo-block">
-                <label>Date:</label>
-                <input type="date" id="new-final-date" class="new-data-input" v-model="todoDate.customdate">
-              </div>
+            <input type="text" id="new-todo-title" class="new-data-input" placeholder="Add title" v-model="todoTitle" >
+            <textarea id="new-todo-text" class="new-data-input" placeholder="Add some text here" v-model="todoText"></textarea>
+            <div id="date-container">
+              <input type="date" id="new-final-date" class="new-data-input" v-model="todoDate.customdate">
             </div>
             <button id="new-add-btn" @click="addTodo">Add task</button>
           </div>
         </div>
 
         <div class="todo-title-block">
-          <h4>Tasks</h4>
-          <div id="todo-active" class="todo-main-item droppable" v-cloak>
+          <!-- <h4>Tasks</h4> -->
+          <div id="todo-active" v-cloak>
             <transition-group name="list" tag="ul">
-              <li class="todo-item draggable" v-for="todo in todos" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }">
+              <li class="todo-item" v-for="todo in todos" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }">
                 <div class="todo-item-content">
                     <h5>{{ todo.title }}</h5>
-                    <label>{{ todo.text }}</label>
+                    <p>{{ todo.text }}</p>
                     <div class="todo-date">
                       <div>
                         <label>Set at: </label>
-                        <label class="start-time">1</label>
+                        <label class="start-time"> {{ todo.startDate }}</label>
                       </div>
                       <div>
                         <label>Time remains: </label>
-                        <label class="time-remains">2</label>
+                        <label class="time-remains">{{ timeDiv(todo.date) }}</label>
                        </div>
                        <div>
                          <label>Finish: </label>
@@ -71,51 +62,28 @@
                     </div>
                 </div>
                 <div class="buttons">
-                  <button class="complete-todo" @click="completeTodo(todo)">++</button>
-                  <button class="edit-todo">O</button>
-                  <button class="delete-todo" @click="removeTodo(todo)">--</button>
+                  <button class="complete-todo" @click="completeTodo(todo)">&#10004;</button>
+                  <button class="edit-todo" @click="editTodo(todo)">&#10002;</button>
+                  <button class="delete-todo" @click="removeTodo(todo)">&#9850;</button>
+                </div>
+                <div class="todo-edit-window" @keyup.esc="cancelEdit(todo)">
+                  <div class="modal-mask">
+                    <div class="modal-container">
+                      <input type="text" id="new-todo-title" class="new-data-input" placeholder="Add title" v-model="todoTitle" >
+                      <textarea id="new-todo-text" class="new-data-input" placeholder="Add some text here" v-model="todoText"></textarea>
+                      <div id="date-container">
+                        <input type="date" id="new-final-date" class="new-data-input" v-model="todoDate.customdate">
+                      </div>
+                      <button id="new-add-btn" @click="doneEdit(todo)">Edit todo</button>
+                      <button class="close-modal-btn" @click="cancelEdit(todo)">X</button>
+                    </div>
+                  </div>
                 </div>
               </li>
             </transition-group>
           </div>
         </div>
-
-        <div class="todo-title-block">
-          <div id="bin">
-
-          </div>
-          <!-- <h4>Completed tasks</h4>
-          <div id="todo-complete" class="todo-main-item droppable" v-cloak>
-            <ul>
-              <li class="todo-item draggable" v-for="todo in completed" :key="todo.id" :class="{ completed: todo.complete, editing: todo == editedTodo }">
-                <div class="todo-item-content">
-                    <h5>{{ todo.title }}</h5>
-                    <label>{{ todo.text }}</label>
-                    <div class="todo-date">
-                      <div>
-                        <label>Set at: </label>
-                        <label class="start-time">1</label>
-                      </div>
-                      <div>
-                        <label>Time remains: </label>
-                        <label class="time-remains">2</label>
-                       </div>
-                       <div>
-                         <label>Finish: </label>
-                         <label class="finish-time">{{ todo.date }}</label>
-                      </div>
-                    </div>
-                </div>
-                <div class="buttons">
-                  <button class="complete-todo" @click="uncompleteTodo(todo)">++</button>
-                  <button class="edit-todo"></button>
-                  <button class="delete-todo" @click="removeCompleted(todo)">--</button>
-                </div>
-              </li>
-            </ul>
-          </div> -->
-        </div>
-        
+                
       </section>
     </section>
     <footer class="footer">

@@ -49,7 +49,7 @@ if (checkUrl('/todo')) {
     }
     
     var vueDate = {};
-    vueDate.customdate = new Date(01/01/2000);
+    vueDate.customdate = new Date(2000, 1, 1, 0, 0);
 
     function checkId(id) {
         if (id !== "undefined") {
@@ -61,6 +61,12 @@ if (checkUrl('/todo')) {
             return 0;  
         } 
     }
+
+    // function timeDiv(finDate) {
+    //     if (Date.parse(finDate) < Date.now()) return 0;
+    //     else return new Date(Date.parse(finDate) - Date.now()).toLocaleString('en-GB', {hour: 'numeric', minute: 'numeric', second: 'numeric'});
+    //     // new Date(Date.parse(todo.date) - Date.now()).toLocaleString('en-GB', {hour: 'numeric', minute: 'numeric', second: 'numeric'})
+    // }
     
     let todoapp = new Vue({
         el: '#todoapp',
@@ -69,8 +75,11 @@ if (checkUrl('/todo')) {
             todoTitle: '',
             todoText: '',
             todoDate: vueDate,
+            todoStartDate: null,
             completed: false,
             editedTodo: null,
+            isEditing: false,
+            beforeEditCache: {}
         },
         created() {
             let todost = [];
@@ -93,6 +102,10 @@ if (checkUrl('/todo')) {
             })
         },
         methods: {
+            timeDiv: function(finDate) {
+                if (Date.parse(finDate) < Date.now()) return 0;
+                else return new Date(Date.parse(finDate) - Date.now()).toLocaleString('en-GB', {hour: 'numeric', minute: 'numeric', second: 'numeric'});
+            },
             addTodo: function() {
                 if (this.todoTitle == '' || this.todoText == '' || this.todoDate.customdate == '') {
                     return;
@@ -109,10 +122,20 @@ if (checkUrl('/todo')) {
                 if (this.todos.length === 0) todo_id = 0
                 else todo_id = Number(this.todos[this.todos.length - 1].id) + 1;
                 console.log(todo_id);
+                let options = {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: 'numeric',
+                };
+                // let startDate = new Date().toLocaleString("en-US", options);
+                let currYear = new Date().getFullYear();
+                let currMonth = (new Date().getMonth() + 1 < 10) ? "0" + (new Date().getMonth()+1) : new Date().getMonth()+1;
+                let startDate = "" + currYear + "-" + currMonth + "-" + new Date().getDate();
                 this.todos.push({
                     id: todo_id,
                     title: value.title,
                     text: value.text,
+                    startDate: startDate,
                     date: value.date,
                     completed: false
                 })
@@ -156,30 +179,65 @@ if (checkUrl('/todo')) {
                     body: JSON.stringify(sendingInfo)
                 });
                 console.log(todo_id);
+                console.log(todo.startDate);
+                console.log(todo.date);
+                console.log(todo.calcDateDiv);
             },
 
-            // editTodo: function(todo) {
-            //     this.beforeEditCache.title = todo.title;
-            //     this.beforeEditCache.text = todo.text;
-            //     this.beforeEditCache.date = todo.date;
-            //     this.editedTodo = todo;
-            // },
+            editTodo: function(todo) {
+                this.beforeEditCache.title = todo.title;
+                this.beforeEditCache.text = todo.text;
+                this.beforeEditCache.date = todo.date;
+                this.editedTodo = todo;
+                this.isEditing = true;
+            },
         
-            // doneEdit: function(todo) {
-            //     if (!this.editedTodo) {
-            //         return
-            //     }
-            //     this.editedTodo = null
-            //     todo.title = todo.title.trim()
-            //     if (!todo.title) {
-            //         this.removeTodo(todo)
-            //     }
-            // },
+            doneEdit: function(todo) {
+                if (!this.editedTodo) {
+                    return
+                }
+                this.editedTodo = null
+                let value = {};
+                let todo_id = todo.id;
+                value.todo_id = todo_id;
+                value.title = this.todoTitle && this.todoTitle.trim();
+                value.text = this.todoText && this.todoText.trim();
+                value.date = this.todoDate.customdate;
+                if (!this.todoTitle) {
+                    value.title = this.beforeEditCache.title;
+                } 
+                if (!this.todoText) {
+                    value.text = this.beforeEditCache.text;
+                }
+                if (this.todoDate.customdate == '' || this.todoDate == '1970-01-01T00:00:00.000Z') {
+                    console.log(this.beforeEditCache.date)
+                    value.date = this.beforeEditCache.date;
+                }
+                fetch('/todoapp', {
+                    method: 'PUT',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(value)
+                })
+                .then(function(response) {
+                    if (response.status === 200) {
+                        todo.title = value.title;
+                        todo.text = value.text;
+                        todo.date = value.date;
+                    }
+                });
+                console.log(todo_id);
+                this.editedTodo = null;
+            },
         
-            // cancelEdit: function(todo) {
-            //     this.editedTodo = null
-            //     todo.title = this.beforeEditCache
-            // },
+            cancelEdit: function(todo) {
+                this.editedTodo = null
+                todo.title = this.beforeEditCache.title;
+                todo.text = this.beforeEditCache.text;
+                todo.date = this.beforeEditCache.date;
+            },
         }
     })
     
