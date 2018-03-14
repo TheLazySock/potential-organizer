@@ -58,21 +58,7 @@ if (checkUrl('/logout')) {
           if (response.status === 200) window.location = '/';
         });  
       }, 5000);
-      // setTimeout(function() {
-      //   window.location = '/';  
-      // }, 3000);
     },
-    // methods: {
-    //   logout: function(event) {
-    //     fetch('/logout', {
-    //       method: 'POST',
-    //       credentials: 'same-origin',
-    //       headers: {
-    //         'Content-Type': 'application/json'
-    //       },
-    //     });
-    //   },
-    // },
   })
 
 }

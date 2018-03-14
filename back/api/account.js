@@ -20,6 +20,36 @@ router.get('/accountinfo', function(req, res) {
     }
 });
 
+router.put('/accountinfo', function(req, res) {
+    if (!req.cookies.sid) {
+        res.redirect('/');
+    } else {
+        if (req.body) {
+            var user_id = req.cookies.sid;
+            console.log(user_id);
+            console.log(req.body);
+            console.log(req.body.name);
+            return User.update({'_id': user_id}, {$set: {name: req.body.name, 
+                surname: req.body.surname,
+                email: req.body.email,
+                sex: req.body.sex,
+                birthday: req.body.birthday,
+                phone: req.body.phone,
+                facebook: req.body.facebook,
+                vk: req.body.vk,
+                twitter: req.body.twitter
+            }}, function(err){
+                if (err) {
+                    res.send('Oops, there is error:' + err);
+                } else {
+                    res.send('OK');
+                }
+            });
+            console.log(req.body);
+        }
+    }
+});
+
 router.get('/account', function(req, res) {
     if (!req.cookies.sid) {
         res.redirect('/');

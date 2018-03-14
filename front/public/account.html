@@ -22,14 +22,90 @@
             <component :is='currentView'></component>
 		</div>
     </header>
-    <div id="account" class="content">
-		<!-- <button @click="logout">Logout</button> -->
-		<ul>
-			<li v-for="(value, key) in user_info">
-				{{key}}: {{value}} 
-			</li>
-		</ul>
-    </div>
+	
+	<section id="account">
+		<section id="diplay-account" v-if="!seenEdit">
+			<button id="edit-info" @click="seenEdit = true">Edit</button>
+			<div id="main-user-info" class="user-info-content-block">
+				<img :src="user_info.avatar"> 
+				<div id="main-user-info-block">
+					<h1>{{user_info.name}} {{user_info.surname}}</h1>
+					<div class="special-user-info">
+						<label>{{user_info.sex}}</label>
+						<label>{{user_info.birthday}}</label>
+						<label>{{user_info.regDate}}</label>
+					</div>
+				</div>
+				<div> </div>
+			</div>
+			<div class="user-info-content-block" id="contacts">
+				<h1>Contacts</h1>
+				<ul>
+					<li>phone: {{user_info.phone}}</li>
+					<li>mail: {{user_info.email}}</li>
+					<li>fb: {{user_info.facebook}}</li>
+					<li>vk: {{user_info.vk}}</li>
+					<li>twitter: {{user_info.twitter}}</li>
+				</ul>
+			</div>
+			<div class="user-info-content-block" id="todo-stats-block">
+				<h1>Todo Statistic</h1>
+				<div class="todo-stats">
+					<div>
+						<label class="stats">{{user_info.todosAllCount}}</label>
+						<label class="todo-stats-label">All todos</label>
+					</div>
+					<div>
+						<label class="stats">{{user_info.todosCompletedCount}}</label>
+						<label class="todo-stats-label">Completed todos</label>
+					</div>
+					<div>
+						<label class="stats">{{calcPercent()}}%</label>
+						<label class="todo-stats-label">% of completed</label>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="edit-account" v-if="seenEdit">
+				<div id="main-user-info" class="user-info-content-block">
+					<img :src="user_info.avatar"> 
+					<div id="main-user-info-block">
+						<div>
+							<div>
+								<input type="text" :placeholder="user_info.name" v-model="name">
+								<input type="text" :placeholder="user_info.surname" v-model="surname">
+							</div>
+						</div>
+						<div class="special-user-info">
+							<select v-model="sex">
+								<option>Male</option>
+								<option>Female</option>
+							</select>
+							<input type="date" v-model="birthday">
+						</div>
+					</div>
+					<div> </div>
+				</div>
+				<div class="user-info-content-block" id="contacts">
+					<h1>Contacts</h1>
+					<ul>
+						<li><input type="tel" placeholder="phone" v-model="phone"></li>
+						<li><input type="text" placeholder="email" v-model="email"></li>
+						<li><input type="text" placeholder="facebook" v-model="facebook"></li>
+						<li><input type="text" placeholder="vk" v-model="vk"></li>
+						<li><input type="text" placeholder="twitter" v-model="twitter"></li>
+					</ul>
+				</div>
+				<div class="user-info-content-block" id="todo-stats-block">
+					<h1>Is it OK?</h1>
+					<div id="cancel-edit-buttons">
+						<button @click="cancelEdit">Cancel</button>
+						<button @click="submitEdited">Edit</button>
+					</div>
+			</section>
+	</section>
+
 	<footer class="footer">
 
 	</footer>

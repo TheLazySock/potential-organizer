@@ -31,8 +31,8 @@ if (checkUrl('/signup')) {
       },
       isValid: function() {
         if (!this.validEmail ||
-          !this.validName ||
-          !this.validSurname ||
+          // !this.validName ||
+          // !this.validSurname ||
           !this.validUsername ||
           !this.validPassword ||
           this.emptyPassword) {
@@ -46,8 +46,8 @@ if (checkUrl('/signup')) {
         if (this.isValid) {
           this.formValid = true;
           storage.email = this.email;
-          storage.name = this.name;
-          storage.surname = this.surname;
+          // storage.name = this.name;
+          // storage.surname = this.surname;
           storage.username = this.username;
           storage.password = this.password;
           fetch(url + '/signup', {

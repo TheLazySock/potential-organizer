@@ -9,8 +9,9 @@ router.get('/logout', function(req, res) {
 });
 
 router.post('/logout', function(req, res, next) {
-  // res.clearCookie('loggedIn');
-  // res.clearCookie('sid');
+  res.clearCookie('loggedIn');
+  res.clearCookie('sid');
+  res.status(200);
   res.send('cookie has been deleted succesfully');
 });
 

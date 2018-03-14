@@ -21,7 +21,7 @@ router.post('/signup', function(req, res, next) {
                 user.save(function(err) {
                     if (!err) {
                         var exprs = 3600 * 24 * 1000 * 3;
-                        res.cookie('sid', data.id, {maxAge: exprs, httpOnly: true});
+                        // res.cookie('sid', data.id, {maxAge: exprs, httpOnly: true});
                         res.json(user)
                     } else {
                         res.send('Oops Error:' + err);

@@ -213,10 +213,24 @@ function getCookie(name) {
   }
 if (checkUrl('/account')) {
 
+    Vue.component('user-modal', {
+        template: '#user-modal-template'
+    })
+
     var account = new Vue({
         el: '#account',
         data: {
-            user_info: []
+            user_info: [],
+            seenEdit: false,
+            email: '',
+            name: '',
+            surname: '',
+            sex: '',
+            birthday: '',
+            phone: '',
+            facebook: '',
+            vk: '',
+            twitter: ''
         },
         created: function(event) {
             fetch('/accountinfo', {
@@ -231,17 +245,88 @@ if (checkUrl('/account')) {
             })
             .then(function(data) {
                 account.user_info = data;
-            })
+            });
+
         },
         methods: {
-            logout: function(event) {
-                fetch('/logout', {  
-                    method: 'POST',
-                    credentials: 'same-origin',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                });
+            calcPercent: function() {
+                let all = this.user_info.todosAllCount
+                let compl = this.user_info.todosCompletedCount
+
+                console.log("all: " + all + "compl: " + compl);
+                if (compl > 0) {
+                    return all/compl * 100;
+                } else return 0;
+            },
+            submitEdited: function() {
+                let value = {};
+                if (this.name) {
+                    value.name = this.name;
+                } else {
+                    value.name = this.user_info.name;
+                }
+                if (this.surname) {
+                    value.surname = this.surname;
+                } else {
+                    value.surname = this.user_info.surname;
+                }
+                if (this.sex) {
+                    value.sex = this.sex;
+                } else {
+                    value.sex = this.user_info.sex;
+                }
+                if (this.email) {
+                    value.email = this.email;
+                } else {
+                    value.email = this.user_info.email;
+                }
+                if (this.phone) {
+                    value.phone = this.phone;
+                } else {
+                    value.phone = this.user_info.phone;
+                }
+                if (this.birthday) {
+                    value.birthday = this.birthday;
+                } else {
+                    value.birthday = this.user_info.birthday;
+                }
+                if (this.facebook) {
+                    value.facebook = this.facebook;
+                } else {
+                    value.facebook = this.user_info.facebook;
+                }
+                if (this.vk) {
+                    value.vk = this.vk;
+                } else {
+                    value.vk = this.user_info.vk;
+                }
+                if (this.twitter) {
+                    value.twitter = this.twitter;
+                } else {
+                    value.twitter = this.user_info.twitter;
+                }
+                console.log(value);
+                if (Object.keys(value).length == 0) {
+                    return
+                } else {
+                    fetch('/accountinfo', {
+                        method: 'PUT',
+                        credentials: 'same-origin',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(value)
+                    })
+                    .then(function(response) {
+                        if (response.status === 200) {
+                            window.location = window.location;
+                        };
+                    });
+                } 
+            },
+            cancelEdit: function() {
+                
+                this.seenEdit = false;
             },
         }
     });   
@@ -308,21 +393,7 @@ if (checkUrl('/logout')) {
           if (response.status === 200) window.location = '/';
         });  
       }, 5000);
-      // setTimeout(function() {
-      //   window.location = '/';  
-      // }, 3000);
     },
-    // methods: {
-    //   logout: function(event) {
-    //     fetch('/logout', {
-    //       method: 'POST',
-    //       credentials: 'same-origin',
-    //       headers: {
-    //         'Content-Type': 'application/json'
-    //       },
-    //     });
-    //   },
-    // },
   })
 
 }
@@ -401,8 +472,8 @@ if (checkUrl('/signup')) {
       },
       isValid: function() {
         if (!this.validEmail ||
-          !this.validName ||
-          !this.validSurname ||
+          // !this.validName ||
+          // !this.validSurname ||
           !this.validUsername ||
           !this.validPassword ||
           this.emptyPassword) {
@@ -416,8 +487,8 @@ if (checkUrl('/signup')) {
         if (this.isValid) {
           this.formValid = true;
           storage.email = this.email;
-          storage.name = this.name;
-          storage.surname = this.surname;
+          // storage.name = this.name;
+          // storage.surname = this.surname;
           storage.username = this.username;
           storage.password = this.password;
           fetch(url + '/signup', {
@@ -446,14 +517,14 @@ if (checkUrl('/signup')) {
  * 
  * Собственно, таски: 
  *  √   1. Пофиксить парсинг данных;    
- *  √+- 2. Сделать операции изменения/удаления данных;
- *  0   2,5. Изменить страницу тудухи, сделать списком (хотя вариант с карточками тоже неплохой имхо), сделать модальное
+ *  √   2. Сделать операции изменения/удаления данных;
+ *  √   2,5. Изменить страницу тудухи, сделать списком (хотя вариант с карточками тоже неплохой имхо), сделать модальное
  *       окно редактирования инфы;
- *  0   3. Доделать страницу account, довести до ума, а именно:
- *  0       3.1. Сделать адекватную модель изменения данных (CRUD операции для юзера, возможно без D), парсинг и вывод пользовательской информации; 
- *  0       3.2. Переделать модель юзера, реализовать необязательную пользовательскую информацию;  
- *  0   4. Как следствие из 3.2, сделать модель регистрации и авторизации более простой а именно:
- *  0       4.1. Вынести в пользовательскую информацию имя, фамилию и прочее. Оставить только никнейм, мыло и пароль; 
+ *  √   3. Доделать страницу account, довести до ума, а именно:
+ *  √       3.1. Сделать адекватную модель изменения данных (CRUD операции для юзера, возможно без D), парсинг и вывод пользовательской информации; 
+ *  √       3.2. Переделать модель юзера, реализовать необязательную пользовательскую информацию;  
+ *  √   4. Как следствие из 3.2, сделать модель регистрации и авторизации более простой а именно:
+ *  √       4.1. Вынести в пользовательскую информацию имя, фамилию и прочее. Оставить только никнейм, мыло и пароль; 
  *  0       4.2. Реализовать логин либо по емейлу, либо по никнейму в одном поле;
  *  √   5. Пофиксить редиректы, возможно сделать их на серверной стороне (т.е. пофиксить проверку кукисов и респонзы);  
  *  -   6. Добавить апдейт кукисов, а именно:   
