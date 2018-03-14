@@ -4,7 +4,7 @@ var User = require('./models/user');
 
 router.get('/signup', function(req, res) {
     res.sendFile('signup.html', {
-        root: '../front/public/'
+        root: './front/public/'
     });
 });
 

@@ -7,7 +7,7 @@ router.use(cookieParser());
 router.get('/', function(req, res) {
     // console.log(req.cookies.sid);
     res.sendFile('index.html', {
-        root: '../front/public/'
+        root: './front/public/'
     });
 });
 

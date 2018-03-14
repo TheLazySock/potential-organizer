@@ -9,7 +9,7 @@ app.use(require('./api'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static('../front/public/static'));
+app.use(express.static('./front/public/static'));
 
 
 

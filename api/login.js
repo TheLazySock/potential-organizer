@@ -6,7 +6,7 @@ router.use(cookieParser());
 
 router.get('/login', function(req, res) {
     res.sendFile('login.html', {
-        root: '../front/public/'
+        root: './front/public/'
     });
 });
 

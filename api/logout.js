@@ -4,7 +4,7 @@ var User = require('./models/user');
 
 router.get('/logout', function(req, res) {
   res.sendFile('logout.html', {
-      root: '../front/public/'
+      root: './front/public/'
   });
 });
 

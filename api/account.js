@@ -55,7 +55,7 @@ router.get('/account', function(req, res) {
         res.redirect('/');
     } else {
         res.sendFile('account.html', {
-            root: '../front/public/'
+            root: './front/public/'
         });
     }
 });

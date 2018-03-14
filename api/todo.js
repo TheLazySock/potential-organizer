@@ -97,7 +97,7 @@ router.get('/todo', function(req, res) {
         res.redirect('/');
     } else {
         res.sendFile('todo.html', {
-            root: '../front/public/'
+            root: './front/public/'
         });
     }
 });
