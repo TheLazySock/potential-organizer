@@ -3,7 +3,8 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
-  height: 100vh; }
+  height: 100%;
+  min-height: 100vh; }
 
 .items {
   display: flex;
@@ -124,8 +125,9 @@
       padding-bottom: 5px; }
   .second-nav ul li:hover > ul {
     display: block !important;
-    margin-top: 1vh;
-    margin-left: -2vw; }
+    position: absolute;
+    right: 0;
+    top: 50px; }
 
 .item {
   width: 45%;
@@ -200,7 +202,8 @@
 #todo-main {
   display: flex;
   flex-direction: column;
-  justify-content: center; }
+  justify-content: center;
+  min-height: 100vh; }
 
 .todo-title-block {
   display: flex;

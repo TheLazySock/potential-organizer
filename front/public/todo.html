@@ -12,7 +12,7 @@
 </head>
 
 <body>
-  <div class="wrapper container">
+  <div class="container">
     <header class="header">
       <nav class="navbar">
         <a id="logo" class="header-elem" href="/"><img src="img/demo.png"/></a>
@@ -27,7 +27,6 @@
       <section id="todo-main">
 
         <div class="todo-title-block">
-          <!-- <h4>Add task</h4> -->
           <div id="todo-add-new">
             <input type="text" id="new-todo-title" class="new-data-input" placeholder="Add title" v-model="todoTitle" >
             <textarea id="new-todo-text" class="new-data-input" placeholder="Add some text here" v-model="todoText"></textarea>
@@ -39,7 +38,6 @@
         </div>
 
         <div class="todo-title-block">
-          <!-- <h4>Tasks</h4> -->
           <div id="todo-active" v-cloak>
             <transition-group name="list" tag="ul">
               <li class="todo-item" v-for="todo in todos" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }">

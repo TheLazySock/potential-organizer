@@ -19,15 +19,15 @@ var user = db.Schema({
   },
   name: { 
     type: String, 
-    default: 'none'
+    default: 'Name'
   },
   surname: { 
     type: String, 
-    default: 'none'
+    default: 'Surname'
   },
   sex: { 
     type: String, 
-    default: 'male'
+    default: 'Male'
   },
   birthday: {
     type: Date,
