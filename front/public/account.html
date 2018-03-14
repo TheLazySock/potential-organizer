@@ -32,8 +32,14 @@
 					<h1>{{user_info.name}} {{user_info.surname}}</h1>
 					<div class="special-user-info">
 						<label>{{user_info.sex}}</label>
-						<label>{{user_info.birthday}}</label>
-						<label>{{user_info.regDate}}</label>
+						<div>
+							<label>Born: </label>
+							<label>{{user_info.birthday}}</label>
+						</div>
+						<div>
+							<label>Days on site: </label>
+							<label>{{user_info.regDate}}</label>
+						</div>
 					</div>
 				</div>
 				<div> </div>
@@ -72,17 +78,23 @@
 					<img :src="user_info.avatar"> 
 					<div id="main-user-info-block">
 						<div>
-							<div>
+							<div class="name-surname-edit">
 								<input type="text" :placeholder="user_info.name" v-model="name">
 								<input type="text" :placeholder="user_info.surname" v-model="surname">
 							</div>
 						</div>
 						<div class="special-user-info">
-							<select v-model="sex">
-								<option>Male</option>
-								<option>Female</option>
-							</select>
-							<input type="date" v-model="birthday">
+							<div>
+								<label>Sex: </label>
+								<select v-model="sex">
+									<option>Male</option>
+									<option>Female</option>
+								</select>
+							</div>
+							<div>
+								<label>Birth day: </label>
+								<input type="date" v-model="birthday">
+							</div>
 						</div>
 					</div>
 					<div> </div>
@@ -98,7 +110,7 @@
 					</ul>
 				</div>
 				<div class="user-info-content-block" id="todo-stats-block">
-					<h1>Is it OK?</h1>
+					<h1> </h1>
 					<div id="cancel-edit-buttons">
 						<button @click="cancelEdit">Cancel</button>
 						<button @click="submitEdited">Edit</button>

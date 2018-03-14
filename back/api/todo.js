@@ -25,7 +25,14 @@ router.post('/todoapp', function(req, res) {
     console.log('uid: ' + user_id);
     var todo = new Todo(req.body);
     todo.user_id = user_id;
-    console.log('todo: ' + todo);   
+    console.log('todo: ' + todo);
+    // var allCount = User.find({'_id': user_id}, {todosAllCount: true}) || 0; 
+    // console.log(allCount);  
+    User.update({'_id': user_id}, {$inc: {todosAllCount: 1}}, function(err) {
+        if (err) {
+            res.send('Oops' + err);
+        } 
+    });
     todo.save(function(err) {
         if (err) {
             res.send('Oops, there is error:' + err);
@@ -40,7 +47,6 @@ router.put('/todoapp', function(req, res) {
     var todo_id = req.body.todo_id;
     console.log(req.body);
     if (req.body.title || req.body.text || req.body.date) {
-        // res.send('Also OK');
         return Todo.update({'user_id': user_id, 'id': todo_id}, {$set: {title : req.body.title, text: req.body.text, date: req.body.date}}, function(err){
             if (err) {
                 res.send('Oops, there is error:' + err);
@@ -49,6 +55,19 @@ router.put('/todoapp', function(req, res) {
             }
         })
     } else {
+        if (req.body.completed === true) {
+            User.update({'_id': user_id}, {$inc: {todosCompletedCount: 1}}, function(err) {
+                if (err) {
+                    res.send('Oops' + err);
+                } 
+            });
+        } else {
+            User.update({'_id': user_id}, {$inc: {todosCompletedCount: -1}}, function(err) {
+                if (err) {
+                    res.send('Oops' + err);
+                } 
+            });
+        }
         return Todo.update({'user_id': user_id, 'id': todo_id}, {$set: {completed : req.body.completed}}, function(err){
             if (err) {
                 res.send('Oops, there is error:' + err);
@@ -63,7 +82,7 @@ router.delete('/todoapp', function(req, res) {
     var todo_id = req.body.todo_id
     var user_id = req.cookies.sid;
     console.log('uid: ' + user_id);
-    console.log('todoid: ' + todo_id)   ;
+    console.log('todoid: ' + todo_id);
     return Todo.remove({'user_id': user_id, 'id': todo_id}, function(err){
         if (err) {
             res.send('Oops, there is error:' + err);

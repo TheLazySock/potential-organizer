@@ -586,6 +586,8 @@
     font-size: 1.2em;
     margin-left: 3%;
     list-style: none; }
+  #contacts input {
+    font-size: 1em; }
 
 #todo-stats-block {
   display: flex;
@@ -632,7 +634,39 @@
     align-items: center;
     min-height: 168px;
     height: 10em;
-    width: 100%; }
+    width: 100%;
+    border-top: solid 1px #c9c9c9; }
+    #edit-account #cancel-edit-buttons button {
+      background: #f7f7f7;
+      border: solid 1px #dddddd;
+      color: #8c8c8c;
+      border-radius: 8px;
+      font-size: 40px;
+      width: 140px;
+      padding: 1px 5px;
+      transition: 0.25s;
+      box-shadow: 0px 0px 8px #e4e4e4; }
+      #edit-account #cancel-edit-buttons button:first-child {
+        margin-right: 3%; }
+        #edit-account #cancel-edit-buttons button:first-child:hover {
+          background: #b53434;
+          color: #fafafa; }
+        #edit-account #cancel-edit-buttons button:first-child:active {
+          background: #991d1d;
+          color: #fafafa; }
+      #edit-account #cancel-edit-buttons button:last-child {
+        margin-left: 3%; }
+        #edit-account #cancel-edit-buttons button:last-child:hover {
+          background: #61c72d;
+          color: #fafafa; }
+        #edit-account #cancel-edit-buttons button:last-child:active {
+          background: #4bae19;
+          color: #fafafa; }
+
+.name-surname-edit input {
+  width: 25%;
+  font-size: 4.5em;
+  padding: 0; }
 
 #edit-info {
   position: absolute;

@@ -69,6 +69,9 @@
         margin-left: 3%; 
         list-style: none;
     }
+    input {
+        font-size: 1em;
+    }
 }
 
 #todo-stats-block {
@@ -124,8 +127,53 @@
         min-height: 168px;
         height: 10em;
         width: 100%;
+        border-top: solid 1px #c9c9c9;
+        button {
+            background: #f7f7f7;
+            border: solid 1px #dddddd;
+            color: #8c8c8c;
+            border-radius: 8px;
+            font-size: 40px;
+            width: 140px;
+            padding: 1px 5px;
+            transition: 0.25s;
+            box-shadow: 0px 0px 8px #e4e4e4;
+            
+            &:first-child() {
+                margin-right: 3%;
+                &:hover {
+                    background: #b53434;
+                    color: #fafafa;
+                }
+                &:active {
+                    background: #991d1d;
+                    color: #fafafa;
+                }
+            }
+            &:last-child() {
+                margin-left: 3%;
+                &:hover {
+                    background: #61c72d;
+                    color: #fafafa;
+                }
+                &:active {
+                    background: #4bae19;
+                    color: #fafafa;
+                }
+            }
+        }
     }
 }
+
+.name-surname-edit {
+    input {
+        width: 25%;
+        font-size: 4.5em;
+        padding: 0;
+    }
+}
+
+
 
 #edit-info {
     position: absolute;

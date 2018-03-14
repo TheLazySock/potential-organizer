@@ -25,9 +25,6 @@
 		<transition name="fade">
 				<label class="warning" v-if="!isValid">Please, enter correct data</label>
 		</transition>
-		<input type="text" class="input" placeholder="email" v-model="email" :class="{ 'error': !validEmail, 'valid': validEmail }"/>
-		<!-- <input type="text" class="input" placeholder="name" v-model="name" :class="{ 'error': !validName, 'valid': validName }"/>
-		<input type="text" class="input" placeholder="surname" v-model="surname" :class="{ 'error': !validSurname, 'valid': validSurname }"/> -->
 		<input type="text" class="input" placeholder="username" v-model="username" :class="{ 'error': !validUsername, 'valid': validUsername }"/>
 		<input type="password" class="input" placeholder="password" v-model="password" :class="{ 'error': !validPassword || emptyPassword, 'valid': validPassword }"/>
 		<input type="password" class="input" placeholder="repeat password" v-model="repPassword" :class="{ 'error': !validPassword || emptyPassword, 'valid': validPassword }"/>

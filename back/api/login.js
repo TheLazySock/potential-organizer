@@ -12,16 +12,16 @@ router.get('/login', function(req, res) {
 
 router.post('/login', function(req, res, next) {
     
-    if (!req.body.email || !req.body.password) {
+    if (!req.body.username || !req.body.password) {
         return res.sendStatus(400);
     } 
     if (req.cookies.sid) {
         res.redirect('/');
     } else {
-        var email = req.body.email;
+        var username = req.body.username;
         var password = req.body.password;
 
-        return User.findOne({'email': email, 'password': password}, {password: 0}, function(err, data) {
+        return User.findOne({'username': username, 'password': password}, {password: 0}, function(err, data) {
             if (err) {
                 res.send('Error, try again');
             } else {

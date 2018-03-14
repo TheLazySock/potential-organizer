@@ -9,13 +9,13 @@ router.get('/signup', function(req, res) {
 });
 
 router.post('/signup', function(req, res, next) {
-    if (!req.body.email || !req.body.password) {
+    if (!req.body.username || !req.body.password) {
         return res.sendStatus(400);
     } else {
-        var email = req.body.email;
+        var username = req.body.username;
         var user = new User(req.body);
-        return User.findOne({'email': email}, function(err, data) {
-            if (data && data.email == email) {
+        return User.findOne({'username': username}, function(err, data) {
+            if (data && data.username == username) {
                 return res.send('User exist');
             } else {
                 user.save(function(err) {

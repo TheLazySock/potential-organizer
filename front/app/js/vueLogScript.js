@@ -2,18 +2,22 @@ if (checkUrl('/login')) {
   let signin = new Vue({
     el: '#signin',
     data: {
-      email: '',
+      username: '',
       password: '',
     },
     computed: {
       validEmail: function() {
         return PATTERN.test(this.email)
       },
+      validUsername: function() {
+        return this.username !== ''
+      },
       emptyPassword: function() {
         return this.password === ''
       },
       isValid: function() {
-        if (!this.validEmail ||
+        if (
+          !this.validUsername ||
           this.emptyPassword) {
             return false;
         } else return true;
@@ -23,7 +27,7 @@ if (checkUrl('/login')) {
       validateForm: function(event) {
         event.preventDefault();
         if (this.isValid) {
-          storage.email = this.email;
+          storage.username = this.username;
           storage.password = this.password;
           fetch(url + '/login', {
             method: 'POST',
@@ -33,8 +37,11 @@ if (checkUrl('/login')) {
             },
             body: JSON.stringify(storage),
           })
-          // setTimeout(function() {window.location = '/'}, 1000);
-          console.log(JSON.stringify(storage));
+          .then(function(response) {
+            if (response.status === 200) {
+              setTimeout(function() {window.location = '/'}, 1000);
+            }
+          })
         } else { }
       },
     }

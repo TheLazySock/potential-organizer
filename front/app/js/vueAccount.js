@@ -40,9 +40,8 @@ if (checkUrl('/account')) {
                 let all = this.user_info.todosAllCount
                 let compl = this.user_info.todosCompletedCount
 
-                console.log("all: " + all + "compl: " + compl);
                 if (compl > 0) {
-                    return all/compl * 100;
+                    return (compl/all * 100).toFixed(2);
                 } else return 0;
             },
             submitEdited: function() {
@@ -92,7 +91,6 @@ if (checkUrl('/account')) {
                 } else {
                     value.twitter = this.user_info.twitter;
                 }
-                console.log(value);
                 if (Object.keys(value).length == 0) {
                     return
                 } else {

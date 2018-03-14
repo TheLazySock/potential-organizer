@@ -17,7 +17,7 @@
  *  √       3.2. Переделать модель юзера, реализовать необязательную пользовательскую информацию;  
  *  √   4. Как следствие из 3.2, сделать модель регистрации и авторизации более простой а именно:
  *  √       4.1. Вынести в пользовательскую информацию имя, фамилию и прочее. Оставить только никнейм, мыло и пароль; 
- *  0       4.2. Реализовать логин либо по емейлу, либо по никнейму в одном поле;
+ *  -       4.2. Реализовать логин либо по емейлу, либо по никнейму в одном поле;
  *  √   5. Пофиксить редиректы, возможно сделать их на серверной стороне (т.е. пофиксить проверку кукисов и респонзы);  
  *  -   6. Добавить апдейт кукисов, а именно:   
  *  -       6.1. Реализовать экспайрс кукисов только в то время, когда пользователь определённое время (3 дня) не заходит на сайт;
@@ -53,11 +53,9 @@ if (checkUrl('/todo')) {
 
     function checkId(id) {
         if (id !== "undefined") {
-            console.log("curid: " + id + ", newid: " + id++);
             return id++;
         } 
         else {
-            console.log('undef id curid: ' + id);
             return 0;  
         } 
     }
@@ -95,7 +93,6 @@ if (checkUrl('/todo')) {
             })
             .then(function(data) {
                 todost = data;
-                console.log(data);
             })
             .then(function() {
                 todoapp.todos = todost;
@@ -117,17 +114,16 @@ if (checkUrl('/todo')) {
                 if (!value) {
                     return;
                 }
-                console.log(this.todos.length); 
+
                 var todo_id;
                 if (this.todos.length === 0) todo_id = 0
                 else todo_id = Number(this.todos[this.todos.length - 1].id) + 1;
-                console.log(todo_id);
+
                 let options = {
                     year: 'numeric',
                     month: 'numeric',
                     day: 'numeric',
                 };
-                // let startDate = new Date().toLocaleString("en-US", options);
                 let currYear = new Date().getFullYear();
                 let currMonth = (new Date().getMonth() + 1 < 10) ? "0" + (new Date().getMonth()+1) : new Date().getMonth()+1;
                 let startDate = "" + currYear + "-" + currMonth + "-" + new Date().getDate();
@@ -155,7 +151,6 @@ if (checkUrl('/todo')) {
                     },
                     body: JSON.stringify({todo_id: todo_id})
                 });
-                console.log(todo_id);
                 this.todos.splice(this.todos.indexOf(todo), 1);
             },
 
@@ -178,10 +173,6 @@ if (checkUrl('/todo')) {
                     },
                     body: JSON.stringify(sendingInfo)
                 });
-                console.log(todo_id);
-                console.log(todo.startDate);
-                console.log(todo.date);
-                console.log(todo.calcDateDiv);
             },
 
             editTodo: function(todo) {
@@ -210,7 +201,6 @@ if (checkUrl('/todo')) {
                     value.text = this.beforeEditCache.text;
                 }
                 if (this.todoDate.customdate == '' || this.todoDate == '1970-01-01T00:00:00.000Z') {
-                    console.log(this.beforeEditCache.date)
                     value.date = this.beforeEditCache.date;
                 }
                 fetch('/todoapp', {
@@ -228,7 +218,6 @@ if (checkUrl('/todo')) {
                         todo.date = value.date;
                     }
                 });
-                console.log(todo_id);
                 this.editedTodo = null;
             },
         

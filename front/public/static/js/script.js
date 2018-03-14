@@ -253,9 +253,8 @@ if (checkUrl('/account')) {
                 let all = this.user_info.todosAllCount
                 let compl = this.user_info.todosCompletedCount
 
-                console.log("all: " + all + "compl: " + compl);
                 if (compl > 0) {
-                    return all/compl * 100;
+                    return (compl/all * 100).toFixed(2);
                 } else return 0;
             },
             submitEdited: function() {
@@ -305,7 +304,6 @@ if (checkUrl('/account')) {
                 } else {
                     value.twitter = this.user_info.twitter;
                 }
-                console.log(value);
                 if (Object.keys(value).length == 0) {
                     return
                 } else {
@@ -401,18 +399,22 @@ if (checkUrl('/login')) {
   let signin = new Vue({
     el: '#signin',
     data: {
-      email: '',
+      username: '',
       password: '',
     },
     computed: {
       validEmail: function() {
         return PATTERN.test(this.email)
       },
+      validUsername: function() {
+        return this.username !== ''
+      },
       emptyPassword: function() {
         return this.password === ''
       },
       isValid: function() {
-        if (!this.validEmail ||
+        if (
+          !this.validUsername ||
           this.emptyPassword) {
             return false;
         } else return true;
@@ -422,7 +424,7 @@ if (checkUrl('/login')) {
       validateForm: function(event) {
         event.preventDefault();
         if (this.isValid) {
-          storage.email = this.email;
+          storage.username = this.username;
           storage.password = this.password;
           fetch(url + '/login', {
             method: 'POST',
@@ -432,8 +434,11 @@ if (checkUrl('/login')) {
             },
             body: JSON.stringify(storage),
           })
-          // setTimeout(function() {window.location = '/'}, 1000);
-          console.log(JSON.stringify(storage));
+          .then(function(response) {
+            if (response.status === 200) {
+              setTimeout(function() {window.location = '/'}, 1000);
+            }
+          })
         } else { }
       },
     }
@@ -471,9 +476,7 @@ if (checkUrl('/signup')) {
         return this.password === ''
       },
       isValid: function() {
-        if (!this.validEmail ||
-          // !this.validName ||
-          // !this.validSurname ||
+        if (
           !this.validUsername ||
           !this.validPassword ||
           this.emptyPassword) {
@@ -486,9 +489,6 @@ if (checkUrl('/signup')) {
         event.preventDefault();
         if (this.isValid) {
           this.formValid = true;
-          storage.email = this.email;
-          // storage.name = this.name;
-          // storage.surname = this.surname;
           storage.username = this.username;
           storage.password = this.password;
           fetch(url + '/signup', {
@@ -525,7 +525,7 @@ if (checkUrl('/signup')) {
  *  √       3.2. Переделать модель юзера, реализовать необязательную пользовательскую информацию;  
  *  √   4. Как следствие из 3.2, сделать модель регистрации и авторизации более простой а именно:
  *  √       4.1. Вынести в пользовательскую информацию имя, фамилию и прочее. Оставить только никнейм, мыло и пароль; 
- *  0       4.2. Реализовать логин либо по емейлу, либо по никнейму в одном поле;
+ *  -       4.2. Реализовать логин либо по емейлу, либо по никнейму в одном поле;
  *  √   5. Пофиксить редиректы, возможно сделать их на серверной стороне (т.е. пофиксить проверку кукисов и респонзы);  
  *  -   6. Добавить апдейт кукисов, а именно:   
  *  -       6.1. Реализовать экспайрс кукисов только в то время, когда пользователь определённое время (3 дня) не заходит на сайт;
@@ -561,11 +561,9 @@ if (checkUrl('/todo')) {
 
     function checkId(id) {
         if (id !== "undefined") {
-            console.log("curid: " + id + ", newid: " + id++);
             return id++;
         } 
         else {
-            console.log('undef id curid: ' + id);
             return 0;  
         } 
     }
@@ -603,7 +601,6 @@ if (checkUrl('/todo')) {
             })
             .then(function(data) {
                 todost = data;
-                console.log(data);
             })
             .then(function() {
                 todoapp.todos = todost;
@@ -625,17 +622,16 @@ if (checkUrl('/todo')) {
                 if (!value) {
                     return;
                 }
-                console.log(this.todos.length); 
+
                 var todo_id;
                 if (this.todos.length === 0) todo_id = 0
                 else todo_id = Number(this.todos[this.todos.length - 1].id) + 1;
-                console.log(todo_id);
+
                 let options = {
                     year: 'numeric',
                     month: 'numeric',
                     day: 'numeric',
                 };
-                // let startDate = new Date().toLocaleString("en-US", options);
                 let currYear = new Date().getFullYear();
                 let currMonth = (new Date().getMonth() + 1 < 10) ? "0" + (new Date().getMonth()+1) : new Date().getMonth()+1;
                 let startDate = "" + currYear + "-" + currMonth + "-" + new Date().getDate();
@@ -663,7 +659,6 @@ if (checkUrl('/todo')) {
                     },
                     body: JSON.stringify({todo_id: todo_id})
                 });
-                console.log(todo_id);
                 this.todos.splice(this.todos.indexOf(todo), 1);
             },
 
@@ -686,10 +681,6 @@ if (checkUrl('/todo')) {
                     },
                     body: JSON.stringify(sendingInfo)
                 });
-                console.log(todo_id);
-                console.log(todo.startDate);
-                console.log(todo.date);
-                console.log(todo.calcDateDiv);
             },
 
             editTodo: function(todo) {
@@ -718,7 +709,6 @@ if (checkUrl('/todo')) {
                     value.text = this.beforeEditCache.text;
                 }
                 if (this.todoDate.customdate == '' || this.todoDate == '1970-01-01T00:00:00.000Z') {
-                    console.log(this.beforeEditCache.date)
                     value.date = this.beforeEditCache.date;
                 }
                 fetch('/todoapp', {
@@ -736,7 +726,6 @@ if (checkUrl('/todo')) {
                         todo.date = value.date;
                     }
                 });
-                console.log(todo_id);
                 this.editedTodo = null;
             },
         

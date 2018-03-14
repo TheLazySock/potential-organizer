@@ -30,9 +30,7 @@ if (checkUrl('/signup')) {
         return this.password === ''
       },
       isValid: function() {
-        if (!this.validEmail ||
-          // !this.validName ||
-          // !this.validSurname ||
+        if (
           !this.validUsername ||
           !this.validPassword ||
           this.emptyPassword) {
@@ -45,9 +43,6 @@ if (checkUrl('/signup')) {
         event.preventDefault();
         if (this.isValid) {
           this.formValid = true;
-          storage.email = this.email;
-          // storage.name = this.name;
-          // storage.surname = this.surname;
           storage.username = this.username;
           storage.password = this.password;
           fetch(url + '/signup', {
