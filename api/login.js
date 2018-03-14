@@ -23,12 +23,16 @@ router.post('/login', function(req, res, next) {
 
         return User.findOne({'username': username, 'password': password}, {password: 0}, function(err, data) {
             if (err) {
+                return err;
                 res.send('Error, try again');
-            } else {
+            } 
+            if (data) {
                 var exprs = 3600 * 24 * 1000 * 3;
                 res.cookie('sid', data.id, {maxAge: exprs, httpOnly: true});
                 res.cookie('loggedIn', 'auth', {maxAge: exprs, httpOnly: false});
                 res.json(data);
+            } else {
+                res.status(500).send('Error with authorization, username and/or password are incorrect');
             }
         })
     }

@@ -439,6 +439,9 @@ if (checkUrl('/login')) {
               setTimeout(function() {window.location = '/'}, 1000);
             }
           })
+          .catch(function(error) {
+            console.log(error);   
+          })
         } else { }
       },
     }
