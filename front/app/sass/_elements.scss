@@ -5,15 +5,15 @@
     display: inline-block;
     list-style: none;
     li {
-      margin-right: 1px;
       display: block;
       font-weight: 100%;
       line-height: 1.6;
       font-size: 14px;
-      padding: 8px 5px 10px;
+      padding: 8px 5px 10px 5px;
       transition: 0.3s;
       a {
         text-decoration: none;
+        width: 100%;
         color: #fff;
       }
       &:hover > a {
@@ -21,10 +21,10 @@
       }
       &:hover li {
         font-weight: 100%;
-      line-height: 1.4;
-      font-size: 14px;
-      padding: 13px 5px 10px;
-      transition: 0.3s;
+        line-height: 1.4;
+        font-size: 14px;
+        padding: 13px 0px 10px 0px;
+        transition: 0.3s;
       }
     }
   }
@@ -34,11 +34,10 @@
     background-color: #0081f9;
     width: 100%;
     float: left;
-    padding: 13px 8px 10px;
     list-style: none; 
     line-height: 1.4;
     font-size: 14px;
-    padding: 13px 5px 0px;
+    padding: 13px 0px 0px 5px;
     transition: 0.3s;
     z-index: 250;
     li:hover  {
@@ -63,6 +62,7 @@
 .item {
   width: 45%;
   margin: 1vh 0;
+  // text-indent: 20px;
 }
 
 .btn {
