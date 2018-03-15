@@ -25,11 +25,17 @@
     </header>
     <form class="container" id="signin" @submit="validateForm">
         <h2>Log In</h2>
-        <transition name="fade">
+        <!-- <transition name="fade">
             <label class="warning" v-if="!isValid">Please, enter correct data</label>
+        </transition> -->
+        <transition name="fade">
+            <label class="" v-if="isUsernameValid === false">Username is incorrect</label>
         </transition>
-		<input type="text" class="input" placeholder="username" v-model="username" :class="{ 'error': !validUsername, 'valid': validUsername }"/>        
-		<input type="password" class="input" placeholder="password" v-model="password" :class="{ 'error': emptyPassword, 'valid': !emptyPassword }"/>
+        <input type="text" class="input" placeholder="username" v-model="username" />   
+        <transition name="fade">
+            <label class="" v-if="isPasswordValid === false">Password is incorrect</label>
+        </transition>     
+		<input type="password" class="input" placeholder="password" v-model="password" />
 		<button class="btn">Submit</button> 
     </form>
     <footer class="footer">

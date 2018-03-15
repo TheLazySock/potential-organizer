@@ -1,29 +1,41 @@
-if (checkUrl('/login')) {
+// if (checkUrl('/login')) {
   let signin = new Vue({
     el: '#signin',
     data: {
       username: '',
       password: '',
+      isUsernameValid: '',
+      isPasswordValid: ''
+    },
+    watch: {
+      username: function (val, oldVal) {
+        this.validateUsername();
+      },
+      password: function(val, oldVal) {
+        this.validatePassword();
+      }
     },
     computed: {
-      validEmail: function() {
-        return PATTERN.test(this.email)
-      },
-      validUsername: function() {
-        return this.username !== ''
-      },
-      emptyPassword: function() {
-        return this.password === ''
-      },
+      // validEmail: function() {
+      //   return PATTERN.test(this.email)
+      // },
       isValid: function() {
         if (
-          !this.validUsername ||
-          this.emptyPassword) {
-            return false;
-        } else return true;
+          this.isUsernameValid &&
+          this.isPasswordValid) {
+            return true;
+        } else return false;
       },
     },
     methods: {
+      validateUsername: function() {
+        if (this.username !== '') this.isUsernameValid = true
+        else this.isUsernameValid = false
+      },
+      validatePassword: function() {
+        if (this.password !== '') this.isPasswordValid = true
+        else this.isPasswordValid = false
+      },
       validateForm: function(event) {
         event.preventDefault();
         if (this.isValid) {
@@ -49,4 +61,4 @@ if (checkUrl('/login')) {
       },
     }
   });  
-}
+// }
