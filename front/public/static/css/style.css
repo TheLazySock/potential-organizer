@@ -240,7 +240,7 @@
   align-items: stretch;
   min-width: 60vw;
   box-shadow: 24px 8px 12px rgba(44, 62, 80, 0.1);
-  height: 25vh;
+  height: 100%;
   padding: 0 0; }
   #todo-add-new #todo-add-new-fields {
     display: flex;
@@ -249,8 +249,6 @@
     align-items: stretch;
     height: 10vh; }
   #todo-add-new #new-todo-title {
-    min-height: 50px;
-    height: 14vh;
     width: 100%;
     padding-left: 15px;
     font-size: 25px;
@@ -269,7 +267,7 @@
     padding-right: -15px;
     font-size: 25px; }
   #todo-add-new #date-container {
-    height: 5vh;
+    min-height: 35px;
     font-size: 10px; }
     #todo-add-new #date-container #new-final-date {
       border: solid 1px #dddddd;
