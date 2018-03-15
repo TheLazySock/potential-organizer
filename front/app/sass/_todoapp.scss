@@ -42,7 +42,7 @@
     align-items: stretch;
     min-width: 60vw;
     box-shadow: 24px 8px 12px rgba(44, 62, 80, 0.10);
-    height: 25vh;
+    height: 100%;
     padding: 0 0;
     #todo-add-new-fields {
         display: flex;
@@ -52,8 +52,7 @@
         height: 10vh;
     }
     #new-todo-title {
-        min-height: 50px;
-        height: 14vh;
+        // height: 100%;
         width: 100%;
         padding-left: 15px;
         font-size: 25px;
@@ -74,7 +73,8 @@
         font-size: 25px;
     }
     #date-container {
-        height: 5vh;
+        // height: 5vh;
+        min-height: 35px;
         font-size: 10px;        
         #new-final-date {
             border: solid 1px #dddddd;
