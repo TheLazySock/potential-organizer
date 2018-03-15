@@ -1,4 +1,4 @@
-// if (checkUrl('/login')) {
+if (checkUrl('/login')) {
   let signin = new Vue({
     el: '#signin',
     data: {
@@ -61,4 +61,4 @@
       },
     }
   });  
-// }
+}

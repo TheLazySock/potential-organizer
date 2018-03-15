@@ -395,7 +395,7 @@ if (checkUrl('/logout')) {
   })
 
 }
-// if (checkUrl('/login')) {
+if (checkUrl('/login')) {
   let signin = new Vue({
     el: '#signin',
     data: {
@@ -458,7 +458,7 @@ if (checkUrl('/logout')) {
       },
     }
   });  
-// }
+}
 
 if (checkUrl('/signup')) {
   let signup = new Vue({
