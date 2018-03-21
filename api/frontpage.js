@@ -4,8 +4,7 @@ var User = require('./models/user');
 
 router.use(cookieParser());
 
-router.get('/', function(req, res) {
-    // console.log(req.cookies.sid);
+router.get('/', function (req, res) {
     res.sendFile('index.html', {
         root: './front/public/'
     });
