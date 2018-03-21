@@ -22,11 +22,7 @@ if (checkUrl('/login')) {
       //   return PATTERN.test(this.email)
       // },
       isValid: function() {
-        if (
-          this.isUsernameValid === true &&
-          this.isPasswordValid === true) {
-            return true;
-        } else return false;
+        return (this.isUsernameValid && this.isPasswordValid)
       },
     },
     methods: {
@@ -45,7 +41,7 @@ if (checkUrl('/login')) {
           this.passwordWarn = 'Password is empty';
           return this.isPasswordValid = false;
         }
-        if (this.password.length <+ 6) {
+        if (this.password.length < 6) {
           this.passwordWarn = 'Password is less than 6 symbols';
           return this.isPasswordValid = false;
         }

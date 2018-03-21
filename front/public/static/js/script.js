@@ -419,11 +419,7 @@ if (checkUrl('/login')) {
       //   return PATTERN.test(this.email)
       // },
       isValid: function() {
-        if (
-          this.isUsernameValid === true &&
-          this.isPasswordValid === true) {
-            return true;
-        } else return false;
+        return (this.isUsernameValid && this.isPasswordValid)
       },
     },
     methods: {
@@ -442,7 +438,7 @@ if (checkUrl('/login')) {
           this.passwordWarn = 'Password is empty';
           return this.isPasswordValid = false;
         }
-        if (this.password.length <+ 6) {
+        if (this.password.length < 6) {
           this.passwordWarn = 'Password is less than 6 symbols';
           return this.isPasswordValid = false;
         }
@@ -525,12 +521,7 @@ if (checkUrl('/signup')) {
       //   return this.password === ''
       // },
       isValid: function() {
-        if (
-          this.isUsernameValid === true &&
-          this.isPasswordValid === true &&
-          this.isPasswordMatch === true) {
-          return true;
-        } else return false;
+        return (this.isUsernameValid && this.isPasswordValid && this.isPasswordMatch)
       },
     },
     methods: {
@@ -549,7 +540,7 @@ if (checkUrl('/signup')) {
           this.passwordWarn = 'Password is empty';
           return this.isPasswordValid = false;
         }
-        if (this.password.length <+ 6) {
+        if (this.password.length < 6) {
           this.passwordWarn = 'Password is less than 6 symbols';
           return this.isPasswordValid = false;
         }
@@ -563,7 +554,7 @@ if (checkUrl('/signup')) {
         else this.isPasswordMatch = false
       },
       validateForm: function(event) {
-        event.preventDefault();        
+        event.preventDefault();       
         if (this.isValid) {
           storage.username = this.username;
           storage.password = this.password;
