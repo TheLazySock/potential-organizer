@@ -402,15 +402,17 @@ if (checkUrl('/login')) {
       username: '',
       password: '',
       isUsernameValid: '',
-      isPasswordValid: ''
+      isPasswordValid: '',
+      usernameWarn: '',
+      passwordWarn: ''
     },
     watch: {
-      username: function (val, oldVal) {
-        this.validateUsername();
-      },
-      password: function(val, oldVal) {
-        this.validatePassword();
-      }
+      // username: function (val, oldVal) {
+      //   this.validateUsername();
+      // },
+      // password: function(val, oldVal) {
+      //   this.validatePassword();
+      // }
     },
     computed: {
       // validEmail: function() {
@@ -418,20 +420,36 @@ if (checkUrl('/login')) {
       // },
       isValid: function() {
         if (
-          this.isUsernameValid &&
-          this.isPasswordValid) {
+          this.isUsernameValid === true &&
+          this.isPasswordValid === true) {
             return true;
         } else return false;
       },
     },
     methods: {
       validateUsername: function() {
-        if (this.username !== '') this.isUsernameValid = true
-        else this.isUsernameValid = false
+        if (this.username === '') {
+          this.usernameWarn = 'Username is empty';
+          return this.isUsernameValid = false;
+        } 
+        else {
+          this.isUsernameValid = true;
+          this.usernameWarn = '';
+        }
       },
       validatePassword: function() {
-        if (this.password !== '') this.isPasswordValid = true
-        else this.isPasswordValid = false
+        if (this.password === '') {
+          this.passwordWarn = 'Password is empty';
+          return this.isPasswordValid = false;
+        }
+        if (this.password.length <+ 6) {
+          this.passwordWarn = 'Password is less than 6 symbols';
+          return this.isPasswordValid = false;
+        }
+        else {
+          this.isPasswordValid = true;
+          this.passwordWarn = '';
+        }
       },
       validateForm: function(event) {
         event.preventDefault();
@@ -472,18 +490,20 @@ if (checkUrl('/signup')) {
       repPassword: '',
       isUsernameValid: '',
       isPasswordValid: '',
-      isPasswordMatch: ''
+      isPasswordMatch: '',
+      usernameWarn: '',
+      passwordWarn: ''
     },
     watch: {
-      username: function (val, oldVal) {
-        this.validateUsername();
-      },
-      password: function(val, oldVal) {
-        this.validatePassword();
-      },
-      repPassword: function(val, oldVal) {
-        this.matchPassword();
-      }
+      // username: function (val, oldVal) {
+      //   this.validateUsername();
+      // },
+      // password: function(val, oldVal) {
+      //   this.validatePassword();
+      // },
+      // repPassword: function(val, oldVal) {
+      //   this.matchPassword();
+      // }
     },
     computed: {
       // validEmail: function() {
@@ -506,28 +526,44 @@ if (checkUrl('/signup')) {
       // },
       isValid: function() {
         if (
-          this.isUsernameValid &&
-          this.isPasswordValid &&
-          this.isPasswordMatch) {
+          this.isUsernameValid === true &&
+          this.isPasswordValid === true &&
+          this.isPasswordMatch === true) {
           return true;
         } else return false;
       },
     },
     methods: {
       validateUsername: function() {
-        if (this.username !== '') this.isUsernameValid = true
-        else this.isUsernameValid = false
+        if (this.username === '') {
+          this.usernameWarn = 'Username is empty';
+          return this.isUsernameValid = false;
+        } 
+        else {
+          this.isUsernameValid = true;
+          this.usernameWarn = '';
+        }
       },
       validatePassword: function() {
-        if (this.password !== '') this.isPasswordValid = true
-        else this.isPasswordValid = false
+        if (this.password === '') {
+          this.passwordWarn = 'Password is empty';
+          return this.isPasswordValid = false;
+        }
+        if (this.password.length <+ 6) {
+          this.passwordWarn = 'Password is less than 6 symbols';
+          return this.isPasswordValid = false;
+        }
+        else {
+          this.isPasswordValid = true;
+          this.passwordWarn = '';
+        }
       },
       matchPassword: function() {
         if (this.password === this.repPassword) this.isPasswordMatch = true
         else this.isPasswordMatch = false
       },
       validateForm: function(event) {
-        event.preventDefault();
+        event.preventDefault();        
         if (this.isValid) {
           storage.username = this.username;
           storage.password = this.password;

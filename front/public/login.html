@@ -29,13 +29,13 @@
             <label class="warning" v-if="!isValid">Please, enter correct data</label>
         </transition> -->
         <transition name="fade">
-            <label class="" v-if="isUsernameValid === false">Username is incorrect</label>
+            <label class="" v-if="isUsernameValid === false">{{usernameWarn}}</label>
         </transition>
-        <input type="text" class="input" placeholder="username" v-model="username" />   
+        <input type="text" class="input" placeholder="username" v-model="username" @blur="validateUsername" :class="{ 'valid': isUsernameValid === true }"/>   
         <transition name="fade">
-            <label class="" v-if="isPasswordValid === false">Password is incorrect</label>
+            <label class="" v-if="isPasswordValid === false">{{passwordWarn}}</label>
         </transition>     
-		<input type="password" class="input" placeholder="password" v-model="password" />
+		<input type="password" class="input" placeholder="password" v-model="password" @blur="validatePassword" :class="{ 'valid': isPasswordValid === true }"/>
 		<button class="btn">Submit</button> 
     </form>
     <footer class="footer">
