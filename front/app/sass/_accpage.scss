@@ -111,6 +111,12 @@
     }
 }
 
+%edit-fields {
+    box-shadow: 3px 3px 5px rgba(44, 62, 80, 0.10);
+    border: solid 1px #dddddd;
+    border-radius: 5px;
+}
+
 #edit-account {
     display: flex;
     flex-direction: column;
@@ -119,6 +125,13 @@
     margin-top: 5vh;
     width: 100%;
     height: 100%;
+    input {
+        @extend %edit-fields;
+    }
+    select {
+        @extend %edit-fields;
+        width: 100%;
+    }
     #cancel-edit-buttons {
         display: flex;
         flex-direction: row;
@@ -167,9 +180,9 @@
 
 .name-surname-edit {
     input {
-        width: 25%;
+        width: 45%;
         font-size: 4.5em;
-        padding: 0;
+        padding: 2px 4px;
     }
 }
 
@@ -195,88 +208,4 @@
         background: #e9e9e9;
         color: #616161;
     }
-}
-
-
-//under this comment are styles for modal window that is not used now
-.user-modal-mask {
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: block;
-    transition: opacity .3s ease;
-}
-
-.user-modal-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    position: fixed;
-    top: 15%;
-    left: 15%;
-    width: 70%;
-    height: 85%;
-    min-width: 70vw;
-    min-height: 75vh;
-    background: #fff;
-    margin-left: -5%;
-    margin-top: -10%;
-    box-shadow: 24px 8px 12px rgba(44, 62, 80, 0.10);
-    z-index: 150;
-    position: fixed;
-    top: 20vh;
-    left: 20vw;
-    h1 {
-        padding: 1% 0 3%;
-        text-align: center;
-    }
-    input {
-        border-radius: 20px;
-        border: 1px inset black;
-        padding: 0 10px;
-        margin: 0 auto;
-        margin-bottom: 1.5vh;
-        width: 30%;
-        min-width: 120px;
-        height: 25px;
-    }
-}
-
-
-#close-user-modal-btn {
-    display: block;
-    position: fixed;
-    right: 14%;
-    top: 5%;
-    z-index: 151;
-    width: 61px;
-    height: 61px;
-    border: solid 1px #ffe9e9;
-    border-radius: 45px;
-    font-size: 45px;
-    background: #ffffff;
-    color: #b3b3b3;
-    cursor: pointer;
-    transition: 0.3s;
-    &:hover {
-        background: #fff0f0;
-        border: solid 2px #ffe0e0;
-    }
-    &:active {
-        background: #ffe0e0;
-        border: solid 2px #ffe0e0;
-    }
-}
-
-.user-modal-enter {
-    opacity: 0;
-}
-  
-.user-modal-leave-active {
-    opacity: 0;
 }

@@ -32,8 +32,15 @@ if (checkUrl('/account')) {
             })
             .then(function(data) {
                 account.user_info = data;
-            });
 
+                let formattedDate = new Date(data.birthday).toLocaleString('ru', {day: 'numeric', month: 'numeric', year: 'numeric'});
+                account.user_info.birthday = formattedDate;
+
+                let today = new Date();
+                let regDate = new Date(account.user_info.regDate);
+                let daysOnSite = regDate < today ? Math.abs(Math.ceil((regDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))) : null;
+                account.user_info.daysOnSite = daysOnSite;
+            });
         },
         methods: {
             calcPercent: function() {
