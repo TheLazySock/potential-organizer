@@ -5,15 +5,21 @@ var checkAuth = require('./middlewares/checkAuth');
 
 router.use(cookieParser());
 
+function isError(res, err, data) {
+    if (err) {
+        return res.send('Oops, there is error:' + err);
+    } else {
+        if (data) {
+            return res.json(data);
+        }
+        return res.send('OK');
+    }
+}
+
 router.get('/accountinfo', checkAuth, function (req, res) {
     var user_id = req.user_id;
     return User.findOne({ '_id': user_id }, { _id: 0, __v: 0, user_id: 0 }, function (err, data) {
-        if (err) {
-            res.send('Oops, there is error:' + err);
-        } else {
-            res.json(data);
-            // res.send('OK');
-        }
+        isError(res, err, data)
     });
 });
 
@@ -36,11 +42,7 @@ router.put('/accountinfo', checkAuth, function (req, res) {
             twitter: req.body.twitter
         }
     }, function (err) {
-        if (err) {
-            res.send('Oops, there is error:' + err);
-        } else {
-            res.send('OK');
-        }
+        isError(res, err)
     });
     console.log(req.body);
 });
