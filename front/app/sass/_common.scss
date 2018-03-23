@@ -51,11 +51,18 @@ $head-foot-height: 6vh;
       color: #ff3a24;
     }
   }
-  .enjoy {
-    margin: 4vh 0;
-    font-size: 7vh;
-    color: #47239b;
-  }
+}
+
+.todo-guide-enter-active, .todo-guide-leave-active {
+  transition: 0.8s;
+}
+
+.todo-guide-enter, .todo-guide-leave-to {
+  height: 0%;
+}
+
+.todo-guide-enter-to, .todo-guide-leave {
+  height: 100vh;
 }
 
 .todo-guide {
@@ -105,10 +112,44 @@ $head-foot-height: 6vh;
   }
 }
 
-.zil {
-  margin-bottom: 3vh;
+#show-close-todo-guide {
+  align-self: flex-end;
+  margin-right: 20%;
+  margin-top: -2.3vh;
+  background: #f7f7f7;
+  border: solid 1px #dddddd;
+  color: #8c8c8c;
+  border-radius: 8px;
+  font-size: 15px;
+  padding: 1px 5px;
+  box-shadow: 0px 0px 8px #e4e4e4;
+  &:hover {
+    transition: 0.25s;
+    background: #f3f3f3;
+    color: #7c7c7c;
+  }
+  &:active {
+    transition: 0.25s;
+    background: #e9e9e9;
+    color: #616161;
+  }
 }
 
+.bottom-part {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  width: 100%;
+  .enjoy {
+    margin: 4vh 0;
+    font-size: 7vh;
+    color: #47239b;
+  }
+  .zil {
+    margin-bottom: 3vh;
+  }
+}
 
 .item {
   width: 51%;

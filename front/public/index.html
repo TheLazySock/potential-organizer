@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<div class="wrapper">
+<div class="wrapper" id="homepage">
 	<header class="header">
 		<nav class="navbar">
 			<a id="logo" class="header-elem" href="/"><img src="img/PO-logo-small.png"/></a>
@@ -61,37 +61,44 @@
 			</p>
 		</div>
 
-		<div class="item item-block todo-guide"> 
-			<label>Working with todo</label>
-			<div class="todo-guide-block">
-				<p>Fill the fields like that</p>
-				<img src="img/todo-example-1.png">
-				<p>and then click the "Add" button</p>
+		<button @click="todoGuideShown = !todoGuideShown" id="show-close-todo-guide">{{this.btnText}} todo guide</button>
+
+		<transition name="todo-guide">
+			<div class="item item-block todo-guide" v-if="todoGuideShown"> 
+				<label>Working with todo</label>
+				<div class="todo-guide-block">
+					<p>Fill the fields like that</p>
+					<img src="img/todo-example-1.png">
+					<p>and then click the "Add" button</p>
+				</div>
+				<div class="todo-guide-block">
+					<p>Add more todos</p>
+					<img src="img/todo-example-2.png">
+				</div>
+				<div class="todo-guide-block">
+					<p>Mark completed, remove some of them or edit todos</p>
+					<img src="img/todo-example-3.png">
+				</div>
+				<p class="todo-guide-warning">
+					<label>WARNING</label><br>
+					If you remove todo that you isn't mark as completed you will spoil you "% of completed" stats in your profile. Be careful.
+				</p>
+				<div class="todo-guide-block">
+					<p>When you click "edit" button (with pen icon), you will see edition modal window. You can fill only field that you want to edit. For example, I will edit second todo in this list</p>
+					<img src="img/todo-example-4.png">
+					<p>and after clicking "Edit todo" button it will look like</p>
+					<img src="img/todo-example-5.png">
+				</div>
+				<p class="last-todo-guide">That's all with todo guide, now you can use it easily.</p>
 			</div>
-			<div class="todo-guide-block">
-				<p>Add more todos</p>
-				<img src="img/todo-example-2.png">
-			</div>
-			<div class="todo-guide-block">
-				<p>Mark completed, remove some of them or edit todos</p>
-				<img src="img/todo-example-3.png">
-			</div>
-			<p class="todo-guide-warning">
-				<label>WARNING</label><br>
-				If you remove todo that you isn't mark as completed you will spoil you "% of completed" stats in your profile. Be careful.
-			</p>
-			<div class="todo-guide-block">
-				<p>When you click "edit" button (with pen icon), you will see edition modal window. You can fill only field that you want to edit. For example, I will edit second todo in this list</p>
-				<img src="img/todo-example-4.png">
-				<p>and after clicking "Edit todo" button it will look like</p>
-				<img src="img/todo-example-5.png">
-			</div>
-			<p class="last-todo-guide">That's all with todo guide, now you can use it easily.</p>
+		</transition>
+
+		<div class="bottom-part">
+			<h2 class="enjoy">Enjoy</h2>
+				
+			<img src="img/zil-gif.gif" class="zil">
 		</div>
 
-		<h2 class="enjoy">Enjoy</h2>
-			
-		<img src="img/zil-gif.gif" class="zil">
 	</div>
 	<footer class="footer">
 

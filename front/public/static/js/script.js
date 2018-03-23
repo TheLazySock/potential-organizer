@@ -367,6 +367,26 @@ if (checkUrl('/logout')) {
   })
 
 }
+
+if (checkUrl('/')) {
+
+  var homepage = new Vue({
+    el: '#homepage',
+    data: {
+      todoGuideShown: true,
+      btnText: 'Close'
+    },
+    watch: {
+      todoGuideShown: function(oldState, newState) {
+        if (this.btnText === 'Close') return this.btnText = 'Show'  
+        this.btnText = 'Close'
+      }
+    },
+    methods: {
+    }
+  })
+
+}
 if (checkUrl('/login')) {
   let signin = new Vue({
     el: '#signin',
