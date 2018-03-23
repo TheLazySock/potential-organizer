@@ -379,17 +379,8 @@ if (checkUrl('/login')) {
       passwordWarn: ''
     },
     watch: {
-      // username: function (val, oldVal) {
-      //   this.validateUsername();
-      // },
-      // password: function(val, oldVal) {
-      //   this.validatePassword();
-      // }
     },
     computed: {
-      // validEmail: function() {
-      //   return PATTERN.test(this.email)
-      // },
       isValid: function() {
         return (this.isUsernameValid && this.isPasswordValid)
       },
@@ -420,6 +411,8 @@ if (checkUrl('/login')) {
         }
       },
       validateForm: function(event) {
+        this.validateUsername();
+        this.validatePassword();
         event.preventDefault();
         if (this.isValid) {
           storage.username = this.username;
@@ -450,10 +443,7 @@ if (checkUrl('/signup')) {
   let signup = new Vue({
     el: '#signup',
     data: {
-      // email: '',
       username: '',
-      // name: '',
-      // surname: '',
       password: '',
       repPassword: '',
       isUsernameValid: '',
@@ -463,35 +453,8 @@ if (checkUrl('/signup')) {
       passwordWarn: ''
     },
     watch: {
-      // username: function (val, oldVal) {
-      //   this.validateUsername();
-      // },
-      // password: function(val, oldVal) {
-      //   this.validatePassword();
-      // },
-      // repPassword: function(val, oldVal) {
-      //   this.matchPassword();
-      // }
     },
     computed: {
-      // validEmail: function() {
-      //   return PATTERN.test(this.email)
-      // },
-      // validName: function() {
-      //   return this.name !== ''
-      // },
-      // validSurname: function() {
-      //   return this.surname !== ''
-      // },
-      // validUsername: function() {
-      //   return this.username !== ''
-      // },
-      // validPassword: function() {
-      //   return this.password === this.repPassword
-      // },
-      // emptyPassword: function() {
-      //   return this.password === ''
-      // },
       isValid: function() {
         return (this.isUsernameValid && this.isPasswordValid && this.isPasswordMatch)
       },
@@ -526,6 +489,8 @@ if (checkUrl('/signup')) {
         else this.isPasswordMatch = false
       },
       validateForm: function(event) {
+        this.validateUsername();
+        this.validatePassword();
         event.preventDefault();       
         if (this.isValid) {
           storage.username = this.username;
@@ -610,8 +575,23 @@ if (checkUrl('/todo')) {
         },
         methods: {
             timeDiv: function(finDate) {
+                today = new Date()
                 if (Date.parse(finDate) < Date.now()) return 0;
-                else return new Date(Date.parse(finDate) - Date.now()).toLocaleString('en-GB', {hour: 'numeric', minute: 'numeric', second: 'numeric'});
+
+                let formFinDate = new Date(finDate);
+
+                let delta = Math.floor((formFinDate - today) / 1000);
+                let days = Math.floor(delta / 86400);
+                delta -= days * 86400;
+                let hours = Math.floor(delta / 3600) % 24;
+                delta -= hours * 3600;
+                let minutes = Math.floor(delta / 60) % 60;
+                delta -= minutes * 60;
+                let seconds = delta % 60;
+
+                hours += days * 24;
+                
+                return dateStr = hours + ':' + minutes + ':' + seconds;
             },
             addTodo: function() {
                 if (this.todoTitle == '' || this.todoText == '' || this.todoDate.customdate == '') {

@@ -10,17 +10,8 @@ if (checkUrl('/login')) {
       passwordWarn: ''
     },
     watch: {
-      // username: function (val, oldVal) {
-      //   this.validateUsername();
-      // },
-      // password: function(val, oldVal) {
-      //   this.validatePassword();
-      // }
     },
     computed: {
-      // validEmail: function() {
-      //   return PATTERN.test(this.email)
-      // },
       isValid: function() {
         return (this.isUsernameValid && this.isPasswordValid)
       },
@@ -51,6 +42,8 @@ if (checkUrl('/login')) {
         }
       },
       validateForm: function(event) {
+        this.validateUsername();
+        this.validatePassword();
         event.preventDefault();
         if (this.isValid) {
           storage.username = this.username;
