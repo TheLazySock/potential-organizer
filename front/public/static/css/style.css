@@ -18,11 +18,79 @@
     margin-top: 4vh;
     font-size: 5vh;
     color: #47239b; }
+  .items a {
+    text-decoration: none; }
+    .items a:link {
+      color: #2468ac; }
+    .items a:visited {
+      color: #474f57; }
   .items #sorry {
     color: rgba(61, 61, 61, 0.3);
     font-size: 1.2vh;
     margin-top: -1.5vh;
     margin-bottom: 2vh; }
+  .items .items-label {
+    margin: 2vh auto;
+    font-size: 23px;
+    color: #380d9d; }
+    .items .items-label em {
+      color: #ff3a24; }
+  .items .enjoy {
+    margin: 4vh 0;
+    font-size: 7vh;
+    color: #47239b; }
+
+.todo-guide {
+  display: flex;
+  flex-direction: column; }
+  .todo-guide div {
+    display: flex;
+    flex-direction: column; }
+  .todo-guide p {
+    font-size: 20px !important; }
+  .todo-guide label {
+    margin: auto;
+    font-size: 35px !important; }
+  .todo-guide img {
+    margin: 10px auto;
+    max-width: 95%;
+    border: solid 1px #dfdfdf; }
+  .todo-guide .todo-guide-warning {
+    display: flex;
+    flex-direction: column;
+    margin: 4vh auto 7vh;
+    padding: 1vh;
+    font-size: 25px !important;
+    text-align: center;
+    border: 1px solid #e8e8e8;
+    border-radius: 25px;
+    box-shadow: 3px 3px 6px #bdbdbd; }
+    .todo-guide .todo-guide-warning label {
+      margin: auto;
+      font-size: 32px !important;
+      color: #ff1b1b; }
+  .todo-guide .todo-guide-block {
+    margin-bottom: 3vh; }
+  .todo-guide .last-todo-guide {
+    margin-top: 1vh;
+    text-align: center;
+    font-size: 23px !important;
+    color: #380d9d; }
+
+.zil {
+  margin-bottom: 3vh; }
+
+.item {
+  width: 51%;
+  margin: 1vh 0;
+  padding: 0 3%; }
+  .item label {
+    color: #380d9d;
+    font-size: 19px; }
+
+.item-block {
+  border-bottom: solid 1px #c9c9c9;
+  padding-bottom: 3em; }
 
 .container {
   display: flex;
@@ -146,10 +214,6 @@
     position: absolute;
     right: 0;
     top: 50px; }
-
-.item {
-  width: 45%;
-  margin: 1vh 0; }
 
 .btn {
   width: 31%;
