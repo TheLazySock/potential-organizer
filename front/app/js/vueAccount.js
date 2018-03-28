@@ -51,6 +51,14 @@ if (checkUrl('/account')) {
                     return (compl/all * 100).toFixed(2);
                 } else return 0;
             },
+            formatDate: function() {
+                //2018-03-26
+                let dateArr = this.user_info.birthday.split('.');
+                let dateStr = dateArr[2] + "-" + dateArr[1] + "-" + dateArr[0]
+
+                console.log(dateStr);
+                return dateStr;
+            },
             submitEdited: function() {
                 var vm = this;
                 dataObject = Object.keys(this.$data); 
@@ -62,8 +70,12 @@ if (checkUrl('/account')) {
                 var value = {};
                 value = userdataFieldsKeys.reduce(function(acc, current) {
                     value[current] = (vm[current]) ? vm[current] : vm.user_info[current];
+                    if (current = "birthday") {
+                        value[current] = (vm[current]) ? vm[current] : vm.formatDate();
+                    }
                     return value;
                 }, {});
+                console.log(value);
                 if (Object.keys(value).length == 0) {
                     return
                 } 
@@ -82,7 +94,6 @@ if (checkUrl('/account')) {
                 });
             },
             cancelEdit: function() {
-                
                 this.seenEdit = false;
             },
         }
