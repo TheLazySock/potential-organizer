@@ -160,6 +160,9 @@
         align-items: center;
         flex-grow: 2;
         margin-left: 2vw;
+        word-wrap: break-word;
+        max-width: calc(100% - 15%);
+        white-space: pre-wrap;
         h5 {
             width: 100%;
             text-align: center;
